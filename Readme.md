@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
 * Студент: [Роман Довгий](https://up.htmlacademy.ru/javascript/19/user/1047897).
-* Наставник: `Неизвестно`.
+* Наставник: [Анастасия Шевченко](https://htmlacademy.ru/profile/id125164).
 
 ---
 
