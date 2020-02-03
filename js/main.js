@@ -104,7 +104,7 @@ var photoArrayGeneration = function () {
 var renderImage = function (number, photoObjectArray) {
   var photoBlock = IMAGE_TEMPLATE.cloneNode(true);
   photoBlock.querySelector('.picture__img').src = photoObjectArray[number].url;
-  photoBlock.querySelector('.picture__comments');
+  photoBlock.querySelector('.picture__comments').textContent = photoObjectArray[number].comments.length;
   photoBlock.querySelector('.picture__likes').textContent = photoObjectArray[number].likes;
   var fragment = document.createDocumentFragment();
   fragment.appendChild(photoBlock);
