@@ -93,11 +93,11 @@ var generatePictureObject = function (photosArray) {
 
 var generatePhotoArray = function () {
   var localPhotoObjectArray = [];
-  var localPHOTOS_URL_ARRAY = Array.from(PHOTOS_URL_ARRAY);
+  var localPhotosUrlArray = Array.from(PHOTOS_URL_ARRAY);
 
   for (var i = 0; i < PHOTOS_COUNTER; i++) {
-    localPhotoObjectArray.push(generatePictureObject(localPHOTOS_URL_ARRAY));
-    localPHOTOS_URL_ARRAY.splice(localPHOTOS_URL_ARRAY.indexOf(localPhotoObjectArray[i].url), 1);
+    localPhotoObjectArray.push(generatePictureObject(localPhotosUrlArray));
+    localPhotosUrlArray.splice(localPhotosUrlArray.indexOf(localPhotoObjectArray[i].url), 1);
   }
 
   return localPhotoObjectArray;
@@ -126,8 +126,8 @@ var appendImage = function () {
 
 };
 
-var PHOTOS_URL_ARRAY = createUrlArray(PATH_TO_PHOTOS, PHOTOS_COUNTER);
-var AVATARS_URL_ARRAY = createUrlArray(PATH_TO_IMAGE, AVATAR_DESCRIPTION_COUNTER);
 // body//
 
+var PHOTOS_URL_ARRAY = createUrlArray(PATH_TO_PHOTOS, PHOTOS_COUNTER);
+var AVATARS_URL_ARRAY = createUrlArray(PATH_TO_IMAGE, AVATAR_DESCRIPTION_COUNTER);
 appendImage();
