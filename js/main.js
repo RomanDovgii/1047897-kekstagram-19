@@ -120,13 +120,13 @@ function generatePhotoArray() {
 
 // renders images blocks//
 
-function renderImage(number, photoObjectArray) {
+function renderImage(number, photoObjects) {
   var photoBlock = IMAGE_TEMPLATE.cloneNode(true);
   var fragment = document.createDocumentFragment();
 
-  photoBlock.querySelector('.picture__img').src = photoObjectArray[number].url;
-  photoBlock.querySelector('.picture__comments').textContent = photoObjectArray[number].comments.length;
-  photoBlock.querySelector('.picture__likes').textContent = photoObjectArray[number].likes;
+  photoBlock.querySelector('.picture__img').src = photoObjects[number].url;
+  photoBlock.querySelector('.picture__comments').textContent = photoObjects[number].comments.length;
+  photoBlock.querySelector('.picture__likes').textContent = photoObjects[number].likes;
   fragment.appendChild(photoBlock);
 
   return fragment;
@@ -135,10 +135,10 @@ function renderImage(number, photoObjectArray) {
 // appends rendered images blocks//
 
 function appendImage() {
-  var photoObjectArray = generatePhotoArray();
+  var photoObjects = generatePhotoArray();
 
   for (var i = 0; i < PHOTOS_COUNTER; i++) {
-    PICTURES_CONTAINER.appendChild(renderImage(i, photoObjectArray));
+    PICTURES_CONTAINER.appendChild(renderImage(i, photoObjects));
   }
 
 }
