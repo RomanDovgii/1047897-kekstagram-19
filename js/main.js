@@ -41,8 +41,8 @@ function generateUrlArray(type, arrayLength) {
       break;
   }
 
-  for (var a = 1; a <= arrayLength; a++) {
-    var filePath = type + a.toString() + typeExtension;
+  for (var i = 1; i <= arrayLength; i++) {
+    var filePath = type + i.toString() + typeExtension;
     array.push(filePath);
   }
 
@@ -65,7 +65,7 @@ function generateRandomComment(pieces) {
   var previousPart = '';
   var piecesArray = Array.from(MESSAGES_PARTS_ARRAY);
 
-  for (var b = 0; b < pieces; b++) {
+  for (var i = 0; i < pieces; i++) {
     previousPart = piecesArray[generateRandomNumber(0, piecesArray.length)];
     comment = comment + previousPart + ' ';
     piecesArray.splice(piecesArray.indexOf(previousPart), 1);
@@ -110,9 +110,9 @@ function generatePhotoArray() {
   var localPhotoObjectArray = [];
   var localPhotosUrlArray = Array.from(PHOTOS_URL_ARRAY);
 
-  for (var d = 0; d < PHOTOS_COUNTER; d++) {
+  for (var i = 0; i < PHOTOS_COUNTER; i++) {
     localPhotoObjectArray.push(generatePictureObject(localPhotosUrlArray));
-    localPhotosUrlArray.splice(localPhotosUrlArray.indexOf(localPhotoObjectArray[d].url), 1);
+    localPhotosUrlArray.splice(localPhotosUrlArray.indexOf(localPhotoObjectArray[i].url), 1);
   }
 
   return localPhotoObjectArray;
@@ -137,8 +137,8 @@ function renderImage(number, photoObjectArray) {
 function appendImage() {
   var photoObjectArray = generatePhotoArray();
 
-  for (var e = 0; e < PHOTOS_COUNTER; e++) {
-    PICTURES_CONTAINER.appendChild(renderImage(e, photoObjectArray));
+  for (var i = 0; i < PHOTOS_COUNTER; i++) {
+    PICTURES_CONTAINER.appendChild(renderImage(i, photoObjectArray));
   }
 
 }
