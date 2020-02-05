@@ -39,15 +39,15 @@ function createUrlArray(type, arrayLength) {
 }
 
 // generates a random number//
-var generateRandomNumber = function (min, max) {
+function generateRandomNumber(min, max) {
   var number;
   number = Math.floor(Math.random() * (max - min) + min);
   return number;
-};
+}
 
 // generates a random comment//
 
-var generateRandomComment = function (pieces) {
+function generateRandomComment(pieces) {
   var comment = '';
   var previousPart = '';
   var piecesArray = Array.from(MESSAGES_PARTS_ARRAY);
@@ -59,10 +59,10 @@ var generateRandomComment = function (pieces) {
   }
 
   return comment;
-};
+}
 
 // generates a comment object//
-var generateCommentObject = function (count) {
+function generateCommentObject(count) {
   var commentsList = [];
 
   for (var i = 0; i < count; i++) {
@@ -75,11 +75,11 @@ var generateCommentObject = function (count) {
   }
 
   return commentsList;
-};
+}
 
 
 // generates a picture object//
-var generatePictureObject = function (photosArray) {
+function generatePictureObject(photosArray) {
   var picture = {
     url: photosArray[generateRandomNumber(0, photosArray.length)],
     description: '',
@@ -87,11 +87,11 @@ var generatePictureObject = function (photosArray) {
     comments: generateCommentObject(generateRandomNumber(COMMENTS_MIN_NUMBER, COMMENTS_MAX_NUMBER))
   };
   return picture;
-};
+}
 
 // generates images objects array//
 
-var generatePhotoArray = function () {
+function generatePhotoArray() {
   var localPhotoObjectArray = [];
   var localPhotosUrlArray = Array.from(PHOTOS_URL_ARRAY);
 
@@ -101,11 +101,11 @@ var generatePhotoArray = function () {
   }
 
   return localPhotoObjectArray;
-};
+}
 
 // renders images blocks//
 
-var renderImage = function (number, photoObjectArray) {
+function renderImage(number, photoObjectArray) {
   var photoBlock = IMAGE_TEMPLATE.cloneNode(true);
   photoBlock.querySelector('.picture__img').src = photoObjectArray[number].url;
   photoBlock.querySelector('.picture__comments').textContent = photoObjectArray[number].comments.length;
@@ -113,18 +113,18 @@ var renderImage = function (number, photoObjectArray) {
   var fragment = document.createDocumentFragment();
   fragment.appendChild(photoBlock);
   return fragment;
-};
+}
 
 // appends rendered images blocks//
 
-var appendImage = function () {
+function appendImage() {
   var photoObjectArray = generatePhotoArray();
 
   for (var i = 0; i < PHOTOS_COUNTER; i++) {
     PICTURES_CONTAINER.appendChild(renderImage(i, photoObjectArray));
   }
 
-};
+}
 
 // body//
 
