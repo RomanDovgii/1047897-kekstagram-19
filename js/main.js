@@ -30,8 +30,8 @@ function createUrlArray(type, arrayLength) {
   var array = [];
   var typeExtension = type === PATH_TO_PHOTOS ? '.jpg' : '.svg';
 
-  for (var i = 1; i <= arrayLength; i++) {
-    var filePath = type.toString() + i.toString() + typeExtension.toString();
+  for (var a = 1; a <= arrayLength; a++) {
+    var filePath = type.toString() + a.toString() + typeExtension.toString();
     array.push(filePath);
   }
 
@@ -41,7 +41,9 @@ function createUrlArray(type, arrayLength) {
 // generates a random number//
 function generateRandomNumber(min, max) {
   var number;
+
   number = Math.floor(Math.random() * (max - min) + min);
+
   return number;
 }
 
@@ -52,7 +54,7 @@ function generateRandomComment(pieces) {
   var previousPart = '';
   var piecesArray = Array.from(MESSAGES_PARTS_ARRAY);
 
-  for (var i = 0; i < pieces; i++) {
+  for (var b = 0; b < pieces; b++) {
     previousPart = piecesArray[generateRandomNumber(0, piecesArray.length)];
     comment = comment + previousPart + ' ';
     piecesArray.splice(piecesArray.indexOf(previousPart), 1);
@@ -65,12 +67,13 @@ function generateRandomComment(pieces) {
 function generateCommentObject(count) {
   var commentsList = [];
 
-  for (var i = 0; i < count; i++) {
+  for (var c = 0; c < count; c++) {
     var comment = {
       avatar: AVATARS_URL_ARRAY[generateRandomNumber(0, AVATARS_URL_ARRAY.length)],
       message: generateRandomComment(2),
       name: NAMES_ARRAY[generateRandomNumber(0, NAMES_ARRAY.length)]
     };
+
     commentsList.push(comment);
   }
 
@@ -86,6 +89,7 @@ function generatePictureObject(photosArray) {
     likes: generateRandomNumber(LIKES_MIN_NUMBER, LIKES_MAX_NUMBER),
     comments: generateCommentObject(generateRandomNumber(COMMENTS_MIN_NUMBER, COMMENTS_MAX_NUMBER))
   };
+
   return picture;
 }
 
@@ -95,9 +99,9 @@ function generatePhotoArray() {
   var localPhotoObjectArray = [];
   var localPhotosUrlArray = Array.from(PHOTOS_URL_ARRAY);
 
-  for (var i = 0; i < PHOTOS_COUNTER; i++) {
+  for (var d = 0; d < PHOTOS_COUNTER; d++) {
     localPhotoObjectArray.push(generatePictureObject(localPhotosUrlArray));
-    localPhotosUrlArray.splice(localPhotosUrlArray.indexOf(localPhotoObjectArray[i].url), 1);
+    localPhotosUrlArray.splice(localPhotosUrlArray.indexOf(localPhotoObjectArray[d].url), 1);
   }
 
   return localPhotoObjectArray;
@@ -107,11 +111,13 @@ function generatePhotoArray() {
 
 function renderImage(number, photoObjectArray) {
   var photoBlock = IMAGE_TEMPLATE.cloneNode(true);
+  var fragment = document.createDocumentFragment();
+
   photoBlock.querySelector('.picture__img').src = photoObjectArray[number].url;
   photoBlock.querySelector('.picture__comments').textContent = photoObjectArray[number].comments.length;
   photoBlock.querySelector('.picture__likes').textContent = photoObjectArray[number].likes;
-  var fragment = document.createDocumentFragment();
   fragment.appendChild(photoBlock);
+
   return fragment;
 }
 
@@ -120,8 +126,8 @@ function renderImage(number, photoObjectArray) {
 function appendImage() {
   var photoObjectArray = generatePhotoArray();
 
-  for (var i = 0; i < PHOTOS_COUNTER; i++) {
-    PICTURES_CONTAINER.appendChild(renderImage(i, photoObjectArray));
+  for (var e = 0; e < PHOTOS_COUNTER; e++) {
+    PICTURES_CONTAINER.appendChild(renderImage(e, photoObjectArray));
   }
 
 }
