@@ -18,9 +18,13 @@ var BIG_PICTURE = document.querySelector('.big-picture');
 var SOCIAL_COMMENTS = BIG_PICTURE.querySelector('.social__comments');
 var SOCIAL_COMMENT_TEMPLATE = SOCIAL_COMMENTS.querySelector('.social__comment');
 var UPLOAD_FILE_INPUT = document.querySelector('#upload-file');
-var UPLOAD_EDIT_FORM = document.querySelector('.img-upload__overlay');
-var UPLOAD_CANCEL_BUTTON = UPLOAD_EDIT_FORM.querySelector('#upload-cancel');
-var EFFECT_LEVEL_PIN = UPLOAD_EDIT_FORM.querySelector('.effect-level__pin');
+var UPLOAD_EDIT_OVERLAY = document.querySelector('.img-upload__overlay');
+var UPLOAD_EDIT_FORM = document.querySelector('.img-upload__form');
+var UPLOAD_CANCEL_BUTTON = UPLOAD_EDIT_OVERLAY.querySelector('#upload-cancel');
+var EFFECT_LEVEL_VALUE = UPLOAD_EDIT_OVERLAY.querySelector('.effect-level__value');
+var EFFECT_LEVEL_LINE = UPLOAD_EDIT_OVERLAY.querySelector('.effect-level__line');
+var EFFECT_LEVEL_PIN = EFFECT_LEVEL_LINE.querySelector('.effect-level__pin');
+var EFFECTS_LIST = UPLOAD_EDIT_OVERLAY.querySelector('.effect-list');
 
 var ENTER_KEY_CODE = 13;
 var ESC_KEY_CODE = 27;
@@ -196,7 +200,7 @@ function showBigPicture() {
 // handlers //
 
 function closeUploadFormHandler() {
-  UPLOAD_EDIT_FORM.classList.add('hidden');
+  UPLOAD_EDIT_OVERLAY.classList.add('hidden');
   UPLOAD_FILE_INPUT.value = '';
 }
 
@@ -204,7 +208,7 @@ function closeUploadFormHandler() {
 
 function onInputFileChange() {
   UPLOAD_FILE_INPUT.onchange = function () {
-    UPLOAD_EDIT_FORM.classList.remove('hidden');
+    UPLOAD_EDIT_OVERLAY.classList.remove('hidden');
   };
 }
 
@@ -216,8 +220,26 @@ function onCloseEditorButtonClick() {
 
 function onDocumentEscPress() {
   document.onkeydown = function (evt) {
-    if ((evt.keyCode === ESC_KEY_CODE) && (!UPLOAD_EDIT_FORM.classList.contains('hidden'))) {
+    if ((evt.keyCode === ESC_KEY_CODE) && (!UPLOAD_EDIT_OVERLAY.classList.contains('hidden'))) {
       closeUploadFormHandler();
+    }
+  };
+}
+
+function onVolumePinMouseup() {
+  EFFECT_LEVEL_PIN.onmouseup = function () {
+    var parentLength = EFFECT_LEVEL_LINE.offsetWidth;
+    var pinLength = EFFECT_LEVEL_PIN.offsetWidth;
+    var pinDistanceFromLeft = EFFECT_LEVEL_PIN.offsetLeft - (pinLength * 0.5);
+    var volumeMaxValue = 100;
+    EFFECT_LEVEL_VALUE.value = Math.floor((pinDistanceFromLeft * volumeMaxValue) / parentLength);
+  };
+}
+
+function onEffectChange() {
+  UPLOAD_EDIT_FORM.onchange = function (evt) {
+    if (evt.target && evt.target.matches('input[type="radio"]')) {
+      EFFECT_LEVEL_VALUE.value = 20;
     }
   };
 }
@@ -226,6 +248,8 @@ function imageEditorActionsHandler() {
   onInputFileChange();
   onCloseEditorButtonClick();
   onDocumentEscPress();
+  onVolumePinMouseup();
+  onEffectChange();
 }
 // body//
 
