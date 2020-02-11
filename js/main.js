@@ -1,5 +1,6 @@
 'use strict';
 
+
 // constants//
 
 var LIKES_MIN_NUMBER = 15;
@@ -16,11 +17,19 @@ var PICTURES_CONTAINER = document.querySelector('.pictures');
 var BIG_PICTURE = document.querySelector('.big-picture');
 var SOCIAL_COMMENTS = BIG_PICTURE.querySelector('.social__comments');
 var SOCIAL_COMMENT_TEMPLATE = SOCIAL_COMMENTS.querySelector('.social__comment');
+var UPLOAD_FILE_INPUT = document.querySelector('#upload-file');
+var UPLOAD_EDIT_FORM = document.querySelector('.img-upload__overlay');
+var UPLOAD_CANCEL_BUTTON = UPLOAD_EDIT_FORM.querySelector('#upload-cancel');
+var EFFECT_LEVEL_PIN = UPLOAD_EDIT_FORM.querySelector('.effect-level__pin');
+
+var ENTER_KEY_CODE = 13;
+var ESC_KEY_CODE = 27;
 
 var PathTo = {
   PHOTOS: 'photos/',
   AVATARS: 'img/avatar-'
 };
+
 
 // arrays//
 
@@ -29,6 +38,8 @@ var MESSAGES_PARTS_ARRAY = ['Всё отлично!', 'В целом всё не
 var PHOTOS_URL_ARRAY = generateUrlArray(PathTo.PHOTOS, PHOTOS_COUNTER);
 var AVATARS_URL_ARRAY = generateUrlArray(PathTo.AVATARS, AVATAR_DESCRIPTION_COUNTER);
 var PHOTO_OBJECTS = generatePhotoArray();
+
+
 // functions//
 
 // generates ta url array//
@@ -170,7 +181,6 @@ function appendComments(photoNumber) {
 
 }
 
-
 // shows big picture //
 
 function showBigPicture() {
@@ -183,8 +193,42 @@ function showBigPicture() {
   BIG_PICTURE.querySelector('.comments-loader').classList.add('hidden');
 }
 
+// handlers //
 
+function closeUploadFormHandler() {
+  UPLOAD_EDIT_FORM.classList.add('hidden');
+  UPLOAD_FILE_INPUT.value = '';
+}
+
+// events //
+
+function onInputFileChange() {
+  UPLOAD_FILE_INPUT.onchange = function () {
+    UPLOAD_EDIT_FORM.classList.remove('hidden');
+  };
+}
+
+function onCloseEditorButtonClick() {
+  UPLOAD_CANCEL_BUTTON.onclick = function () {
+    closeUploadFormHandler();
+  };
+}
+
+function onDocumentEscPress() {
+  document.onkeydown = function (evt) {
+    if ((evt.keyCode === ESC_KEY_CODE) && (!UPLOAD_EDIT_FORM.classList.contains('hidden'))) {
+      closeUploadFormHandler();
+    }
+  };
+}
+
+function imageEditorActionsHandler() {
+  onInputFileChange();
+  onCloseEditorButtonClick();
+  onDocumentEscPress();
+}
 // body//
 
+imageEditorActionsHandler();
 appendImage();
-showBigPicture();
+// showBigPicture();
