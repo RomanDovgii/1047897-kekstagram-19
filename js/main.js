@@ -31,7 +31,6 @@ var EFFECT_LEVEL_PIN = EFFECT_LEVEL_LINE.querySelector('.effect-level__pin');
 var UPLOAD_HASHTAGS_INPUT = UPLOAD_EDIT_OVERLAY.querySelector('.text__hashtags');
 var UPLOAD_DESCRIPTION_INPUT = UPLOAD_EDIT_OVERLAY.querySelector('.text__description');
 
-var ENTER_KEY_CODE = 13;
 var ESC_KEY_CODE = 27;
 
 // restrictions//
@@ -196,15 +195,15 @@ function appendComments(photoNumber) {
 
 // shows big picture //
 
-function showBigPicture() {
-  document.querySelector('.social__comments').innerHTML = '';
-  document.querySelector('body').classList.add('modal-open');
-  BIG_PICTURE.classList.remove('hidden');
-  bigPictureRender(0);
-  appendComments(0);
-  BIG_PICTURE.querySelector('.social__comment-count').classList.add('hidden');
-  BIG_PICTURE.querySelector('.comments-loader').classList.add('hidden');
-}
+// function showBigPicture() {
+//   document.querySelector('.social__comments').innerHTML = '';
+//   document.querySelector('body').classList.add('modal-open');
+//   BIG_PICTURE.classList.remove('hidden');
+//   bigPictureRender(0);
+//   appendComments(0);
+//   BIG_PICTURE.querySelector('.social__comment-count').classList.add('hidden');
+//   BIG_PICTURE.querySelector('.comments-loader').classList.add('hidden');
+// }
 
 // select right word //
 
