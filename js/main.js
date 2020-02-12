@@ -225,24 +225,9 @@ function selectRightSymbolWordForm(number) {
 function checkIfHashtagsAreCorrect(array) {
   if (array.length <= 5) {
     for (var i = 0; i < array.length; i++) {
-      var wordWithHashtag = array[i]
-      console.log(wordWithHashtag);
-      var wordWithoutHashtag = wordWithHashtag.substr(1);
-      chechIfFirstSymbolIsHashtag(wordWithHashtag);
-      checIfLengthIsOk(wordWithHashtag);
-
-      if (wordWithoutHashtag.match(LETTER_NUMBER)) {
-        console.log('everything is fine');
-        console.log(i);
-      } else if (wordWithoutHashtag === '') {
-        UPLOAD_HASHTAGS_INPUT.setCustomValidity('Не забудьте ввести хештег');
-        UPLOAD_HASHTAGS_INPUT.reportValidity();
-      } else {
-        UPLOAD_HASHTAGS_INPUT.setCustomValidity('Похоже, вы использовали спецсимвол или знак препинания, пожалуйста, удалите их');
-        UPLOAD_HASHTAGS_INPUT.reportValidity();
-      }
-
+      var wordWithHashtag = array[i];
       var lowerCaseArray = makeArrayLowerCase(array);
+      chechIfFirstSymbolIsHashtag(wordWithHashtag);
       checkIfUsedTwice(lowerCaseArray);
     }
   } else {
@@ -256,6 +241,8 @@ function chechIfFirstSymbolIsHashtag(string) {
   if (string[0] !== '#') {
     UPLOAD_HASHTAGS_INPUT.setCustomValidity('Не забудьте, что каждый хештег должен начинаться с # и отделяться пробелом');
     UPLOAD_HASHTAGS_INPUT.reportValidity();
+  } else {
+    checIfLengthIsOk(string);
   }
 }
 
@@ -263,6 +250,8 @@ function checIfLengthIsOk(string) {
   if (string.length > HASHTAG_MAX_LENGTH) {
     UPLOAD_HASHTAGS_INPUT.setCustomValidity('Один из хэштегов больше 20 символов, просим вас сократить его');
     UPLOAD_HASHTAGS_INPUT.reportValidity();
+  } else {
+    checkIfSymbolsAreAllowed(string);
   }
 }
 
@@ -289,6 +278,21 @@ function checkIfUsedTwice(array) {
       UPLOAD_HASHTAGS_INPUT.setCustomValidity('Один из хэштегов повторяется ' + counter.toString() + ' раз');
       UPLOAD_HASHTAGS_INPUT.reportValidity();
     }
+  }
+}
+
+function checkIfSymbolsAreAllowed(string) {
+  var wordWithoutHashtag = string.substr(1);
+
+  if (wordWithoutHashtag.match(LETTER_NUMBER)) {
+    UPLOAD_HASHTAGS_INPUT.setCustomValidity('Нет никаких ошибок');
+    UPLOAD_HASHTAGS_INPUT.reportValidity();
+  } else if (wordWithoutHashtag === '') {
+    UPLOAD_HASHTAGS_INPUT.setCustomValidity('Не забудьте ввести хештег');
+    UPLOAD_HASHTAGS_INPUT.reportValidity();
+  } else {
+    UPLOAD_HASHTAGS_INPUT.setCustomValidity('Похоже, вы использовали спецсимвол или знак препинания, пожалуйста, удалите их');
+    UPLOAD_HASHTAGS_INPUT.reportValidity();
   }
 }
 // handlers //
