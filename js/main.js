@@ -30,6 +30,7 @@ var EFFECT_LEVEL_LINE = UPLOAD_EDIT_OVERLAY.querySelector('.effect-level__line')
 var EFFECT_LEVEL_PIN = EFFECT_LEVEL_LINE.querySelector('.effect-level__pin');
 var UPLOAD_HASHTAGS_INPUT = UPLOAD_EDIT_OVERLAY.querySelector('.text__hashtags');
 var UPLOAD_DESCRIPTION_INPUT = UPLOAD_EDIT_OVERLAY.querySelector('.text__description');
+var UPLOAD_SUBMIT_BUTTON = UPLOAD_EDIT_OVERLAY.querySelector('.img-upload__submit');
 
 var ESC_KEY_CODE = 27;
 
@@ -219,40 +220,6 @@ function selectRightSymbolWordForm(number) {
   return rightWord;
 }
 
-// check if hashtags are correct //
-
-function checkIfHashtagsAreCorrect(array) {
-  if (array.length <= 5) {
-    for (var i = 0; i < array.length; i++) {
-      var wordWithHashtag = array[i];
-      var lowerCaseArray = makeArrayLowerCase(array);
-      chechIfFirstSymbolIsHashtag(wordWithHashtag);
-      checkIfUsedTwice(lowerCaseArray);
-    }
-  } else {
-    UPLOAD_HASHTAGS_INPUT.setCustomValidity('К сожалению, фото не может иметь более 5 хештегов');
-    UPLOAD_HASHTAGS_INPUT.reportValidity();
-  }
-
-}
-
-function chechIfFirstSymbolIsHashtag(string) {
-  if (string[0] !== '#') {
-    UPLOAD_HASHTAGS_INPUT.setCustomValidity('Не забудьте, что каждый хештег должен начинаться с # и отделяться пробелом');
-    UPLOAD_HASHTAGS_INPUT.reportValidity();
-  } else {
-    checIfLengthIsOk(string);
-  }
-}
-
-function checIfLengthIsOk(string) {
-  if (string.length > HASHTAG_MAX_LENGTH) {
-    UPLOAD_HASHTAGS_INPUT.setCustomValidity('Один из хэштегов больше 20 символов, просим вас сократить его');
-    UPLOAD_HASHTAGS_INPUT.reportValidity();
-  } else {
-    checkIfSymbolsAreAllowed(string);
-  }
-}
 
 function makeArrayLowerCase(array) {
   var lowerCaseArray = [];
@@ -264,9 +231,57 @@ function makeArrayLowerCase(array) {
   return lowerCaseArray;
 }
 
+// check if hashtags are correct //
+
+function checkIfHashtagsAreCorrect(array) {
+  var customValidityString = '';
+
+  if (array.length <= 5) {
+    for (var i = 0; i < array.length; i++) {
+      var wordWithHashtag = array[i];
+      var lowerCaseArray = makeArrayLowerCase(array);
+      customValidityString = chechIfFirstSymbolIsHashtag(wordWithHashtag);
+      if (customValidityString === '') {
+        customValidityString = checkIfUsedTwice(lowerCaseArray);
+      }
+    }
+  } else {
+    customValidityString = 'К сожалению, фото не может иметь более 5 хештегов';
+  }
+
+  return customValidityString;
+}
+
+function chechIfFirstSymbolIsHashtag(string) {
+  var customValidityString = '';
+
+  if (string[0] !== '#') {
+    customValidityString = 'Не забудьте, что каждый хештег должен начинаться с # и отделяться пробелом';
+  } else {
+    customValidityString = checIfLengthIsOk(string);
+  }
+
+  return customValidityString;
+}
+
+function checIfLengthIsOk(string) {
+  var customValidityString = '';
+
+  if (string.length > HASHTAG_MAX_LENGTH) {
+    customValidityString = 'Один из хэштегов больше 20 символов, просим вас сократить его';
+  } else {
+    customValidityString = checkIfSymbolsAreAllowed(string);
+  }
+
+  return customValidityString;
+}
+
 function checkIfUsedTwice(array) {
+  var customValidityString = '';
+
   for (var i = 0; i < array.length; i++) {
     var counter = 0;
+
     for (var j = 0; j < array.length; j++) {
       if (array[i] === array [j]) {
         counter = counter + 1;
@@ -274,25 +289,24 @@ function checkIfUsedTwice(array) {
     }
 
     if (counter > 1) {
-      UPLOAD_HASHTAGS_INPUT.setCustomValidity('Один из хэштегов повторяется ' + counter.toString() + ' раз');
-      UPLOAD_HASHTAGS_INPUT.reportValidity();
+      customValidityString = 'Один из хэштегов повторяется ' + counter.toString() + ' раз';
     }
   }
+
+  return customValidityString;
 }
 
 function checkIfSymbolsAreAllowed(string) {
   var wordWithoutHashtag = string.substr(1);
+  var customValidityString = '';
 
-  if (wordWithoutHashtag.match(LETTER_NUMBER)) {
-    UPLOAD_HASHTAGS_INPUT.setCustomValidity('Нет никаких ошибок');
-    UPLOAD_HASHTAGS_INPUT.reportValidity();
+  if (!LETTER_NUMBER.test(wordWithoutHashtag) && !(wordWithoutHashtag === '')) {
+    customValidityString = 'Похоже, вы использовали спецсимвол или знак препинания, пожалуйста, удалите их';
   } else if (wordWithoutHashtag === '') {
-    UPLOAD_HASHTAGS_INPUT.setCustomValidity('Не забудьте ввести хештег');
-    UPLOAD_HASHTAGS_INPUT.reportValidity();
-  } else {
-    UPLOAD_HASHTAGS_INPUT.setCustomValidity('Похоже, вы использовали спецсимвол или знак препинания, пожалуйста, удалите их');
-    UPLOAD_HASHTAGS_INPUT.reportValidity();
+    customValidityString = 'Не забудьте ввести хештег';
   }
+
+  return customValidityString;
 }
 // handlers //
 
@@ -339,23 +353,32 @@ function onRadioButtonChangeHandler(evt) {
   }
 }
 
-function onHashtagsKeyup() {
+function onHashtagsInput() {
   var hashtags = [];
 
-  UPLOAD_HASHTAGS_INPUT.onkeyup = function () {
+  UPLOAD_HASHTAGS_INPUT.oninput = function () {
+    var customValidityString = '';
     hashtags = UPLOAD_HASHTAGS_INPUT.value.split(' ');
-    checkIfHashtagsAreCorrect(hashtags);
+    customValidityString = checkIfHashtagsAreCorrect(hashtags);
+    UPLOAD_HASHTAGS_INPUT.setCustomValidity(customValidityString);
+
+    if (customValidityString !== '') {
+      UPLOAD_HASHTAGS_INPUT.reportValidity();
+    }
   };
 }
 
-function onDescriptionKeyup() {
+function onDescriptionInput() {
   var textContent = '';
-  UPLOAD_DESCRIPTION_INPUT.onkeyup = function () {
+  UPLOAD_DESCRIPTION_INPUT.oninput = function () {
+    var customValidityString = '';
     textContent = UPLOAD_DESCRIPTION_INPUT.value;
+    UPLOAD_DESCRIPTION_INPUT.setCustomValidity(customValidityString);
 
     if (textContent.length > DESCRIPTION_MAX_LENGTH) {
       var difference = textContent.length - DESCRIPTION_MAX_LENGTH;
-      UPLOAD_DESCRIPTION_INPUT.setCustomValidity('Ваш комментарий слишком длинный, попробуйте укоротить его на ' + difference.toString() + selectRightSymbolWordForm(difference));
+      customValidityString = 'Ваш комментарий слишком длинный, попробуйте укоротить его на ' + difference.toString() + selectRightSymbolWordForm(difference);
+      UPLOAD_DESCRIPTION_INPUT.setCustomValidity(customValidityString);
       UPLOAD_DESCRIPTION_INPUT.reportValidity();
     }
   };
@@ -373,8 +396,8 @@ function imageEditorActionsHandler() {
   onDocumentEscPress();
   onVolumePinMouseup();
   onFormChange();
-  onDescriptionKeyup();
-  onHashtagsKeyup();
+  onDescriptionInput();
+  onHashtagsInput();
 }
 // body//
 
