@@ -175,21 +175,21 @@ function appendImage() {
 
 // renders big picture //
 
-function bigPictureRender(photoNumber) {
-  BIG_PICTURE.querySelector('.big-picture__img img').src = PHOTO_OBJECTS[photoNumber].url;
-  BIG_PICTURE.querySelector('.likes-count').textContent = PHOTO_OBJECTS[photoNumber].likes;
-  BIG_PICTURE.querySelector('.comments-count').textContent = PHOTO_OBJECTS[photoNumber].comments.length;
+function renderBigPicture(index) {
+  BIG_PICTURE.querySelector('.big-picture__img img').src = PHOTO_OBJECTS[index].url;
+  BIG_PICTURE.querySelector('.likes-count').textContent = PHOTO_OBJECTS[index].likes;
+  BIG_PICTURE.querySelector('.comments-count').textContent = PHOTO_OBJECTS[index].comments.length;
 }
 
 // appends comments//
 
-function appendComments(photoNumber) {
+function appendComments(index) {
 
-  for (var i = 0; i < PHOTO_OBJECTS[photoNumber].comments.length; i++) {
+  for (var i = 0; i < PHOTO_OBJECTS[index].comments.length; i++) {
     var socialComment = SOCIAL_COMMENT_TEMPLATE.cloneNode(true);
-    socialComment.querySelector('.social__picture').src = PHOTO_OBJECTS[photoNumber].comments[i].avatar;
-    socialComment.querySelector('.social__picture').alt = PHOTO_OBJECTS[photoNumber].comments[i].name;
-    socialComment.querySelector('.social__text').textContent = PHOTO_OBJECTS[photoNumber].comments[i].message;
+    socialComment.querySelector('.social__picture').src = PHOTO_OBJECTS[index].comments[i].avatar;
+    socialComment.querySelector('.social__picture').alt = PHOTO_OBJECTS[index].comments[i].name;
+    socialComment.querySelector('.social__text').textContent = PHOTO_OBJECTS[index].comments[i].message;
     SOCIAL_COMMENTS.append(socialComment);
   }
 
@@ -201,7 +201,7 @@ function showBigPicture(number) {
   document.querySelector('.social__comments').innerHTML = '';
   document.querySelector('body').classList.add('modal-open');
   BIG_PICTURE.classList.remove('hidden');
-  bigPictureRender(number);
+  renderBigPicture(number);
   appendComments(number);
   BIG_PICTURE.querySelector('.social__comment-count').classList.add('hidden');
   BIG_PICTURE.querySelector('.comments-loader').classList.add('hidden');
@@ -319,25 +319,25 @@ function closeUploadFormHandler() {
 // events //
 
 function onInputFileChange() {
-  UPLOAD_FILE_INPUT.onchange = function () {
+  UPLOAD_FILE_INPUT.addEventListener('change', function () {
     UPLOAD_EDIT_OVERLAY.classList.remove('hidden');
-  };
+  });
 }
 
 function onCloseEditorButtonClick() {
-  UPLOAD_CANCEL_BUTTON.onclick = function () {
+  UPLOAD_CANCEL_BUTTON.addEventListener('click', function () {
     closeUploadFormHandler();
-  };
+  });
 }
 
 function onVolumePinMouseup() {
-  EFFECT_LEVEL_PIN.onmouseup = function () {
+  EFFECT_LEVEL_PIN.addEventListener('mouseup', function () {
     var parentLength = EFFECT_LEVEL_LINE.offsetWidth;
     var pinLength = EFFECT_LEVEL_PIN.offsetWidth;
     var pinDistanceFromLeft = EFFECT_LEVEL_PIN.offsetLeft - (pinLength * 0.5);
     var volumeMaxValue = 100;
     EFFECT_LEVEL_VALUE.value = Math.floor((pinDistanceFromLeft * volumeMaxValue) / parentLength);
-  };
+  });
 }
 
 function onRadioButtonChangeHandler(evt) {
@@ -349,7 +349,7 @@ function onRadioButtonChangeHandler(evt) {
 function onHashtagsInput() {
   var hashtags = [];
 
-  UPLOAD_HASHTAGS_INPUT.oninput = function () {
+  UPLOAD_HASHTAGS_INPUT.addEventListener('input', function () {
     var customValidityString = '';
     hashtags = UPLOAD_HASHTAGS_INPUT.value.split(' ');
     customValidityString = checkIfHashtagsAreCorrect(hashtags);
@@ -358,12 +358,12 @@ function onHashtagsInput() {
     if (customValidityString !== '') {
       UPLOAD_HASHTAGS_INPUT.reportValidity();
     }
-  };
+  });
 }
 
 function onDescriptionInput() {
   var textContent = '';
-  UPLOAD_DESCRIPTION_INPUT.oninput = function () {
+  UPLOAD_DESCRIPTION_INPUT.addEventListener('input', function () {
     var customValidityString = '';
     textContent = UPLOAD_DESCRIPTION_INPUT.value;
     UPLOAD_DESCRIPTION_INPUT.setCustomValidity(customValidityString);
@@ -374,13 +374,13 @@ function onDescriptionInput() {
       UPLOAD_DESCRIPTION_INPUT.setCustomValidity(customValidityString);
       UPLOAD_DESCRIPTION_INPUT.reportValidity();
     }
-  };
+  });
 }
 
 function onFormChange() {
-  UPLOAD_EDIT_FORM.onchange = function (evt) {
+  UPLOAD_EDIT_FORM.addEventListener('change', function (evt) {
     onRadioButtonChangeHandler(evt);
-  };
+  });
 }
 
 // big picture section //
@@ -404,48 +404,48 @@ function showPicture(evt) {
 }
 
 function onPicturesClick() {
-  USERS_PICTURES_LIST.onclick = function (evt) {
+  USERS_PICTURES_LIST.addEventListener('click', function (evt) {
     showPicture(evt);
-  };
+  });
 }
 
 function onPicturesKeydown() {
-  USERS_PICTURES_LIST.onkeydown = function (evt) {
+  USERS_PICTURES_LIST.addEventListener('keydown', function (evt) {
 
     if (evt.keyCode === ENTER_KEY_CODE) {
       showPicture(evt);
     }
 
-  };
+  });
 }
 
 function onBigPictureCloseClick() {
-  BIG_PICTURE_CLOSE.onclick = function () {
+  BIG_PICTURE_CLOSE.addEventListener('click', function () {
     BIG_PICTURE.classList.add('hidden');
-  };
+  });
 }
 
 function onCommentInput() {
   var textContent = '';
-  BIG_PICTURE_COMMENT_INPUT.oninput = function () {
-    var customValidityString = '';
+  BIG_PICTURE_COMMENT_INPUT.addEventListener('input', function () {
     textContent = BIG_PICTURE_COMMENT_INPUT.value;
     BIG_PICTURE_COMMENT_INPUT.setCustomValidity(customValidityString);
 
     if (textContent.length > DESCRIPTION_MAX_LENGTH) {
+      var customValidityString = '';
       var difference = textContent.length - DESCRIPTION_MAX_LENGTH;
       customValidityString = 'Ваш комментарий слишком длинный, попробуйте укоротить его на ' + difference.toString() + selectRightSymbolWordForm(difference);
       BIG_PICTURE_COMMENT_INPUT.setCustomValidity(customValidityString);
       BIG_PICTURE_COMMENT_INPUT.reportValidity();
     }
-  };
+  });
 }
 
 
 // document //
 
 function onDocumentKeydown() {
-  document.onkeydown = function (evt) {
+  document.addEventListener('keydown', function (evt) {
     if ((evt.keyCode === ESC_KEY_CODE) && (!UPLOAD_EDIT_OVERLAY.classList.contains('hidden')) && (document.activeElement !== UPLOAD_DESCRIPTION_INPUT) && (document.activeElement !== UPLOAD_HASHTAGS_INPUT)) {
       closeUploadFormHandler();
     }
@@ -453,7 +453,7 @@ function onDocumentKeydown() {
     if ((evt.keyCode === ESC_KEY_CODE) && (!BIG_PICTURE.classList.contains('hidden')) && (document.activeElement !== BIG_PICTURE_COMMENT_INPUT)) {
       BIG_PICTURE.classList.add('hidden');
     }
-  };
+  });
 }
 
 // handlers //
