@@ -9,6 +9,7 @@
   var UPLOAD_HASHTAGS_INPUT = UPLOAD_EDIT_OVERLAY.querySelector('.text__hashtags');
   var EFFECT_LEVEL_LINE = UPLOAD_EDIT_OVERLAY.querySelector('.effect-level__line');
   var EFFECT_LEVEL_PIN = EFFECT_LEVEL_LINE.querySelector('.effect-level__pin');
+  var UPLOAD_EDIT_DEPTH = UPLOAD_EDIT_OVERLAY.querySelector('.effect-level__depth');
 
   function checkIfHashtagsAreCorrect(array) {
     var customValidityString = '';
@@ -111,7 +112,11 @@
 
   function onRadioButtonChangeHandler(evt) {
     if (evt.target && evt.target.matches('input[type="radio"]')) {
+      var value = evt.target.value;
       EFFECT_LEVEL_VALUE.value = 20;
+      EFFECT_LEVEL_PIN.style.left = 20 + '%';
+      UPLOAD_EDIT_DEPTH.style.width = EFFECT_LEVEL_PIN.style.left;
+      window.effects.applyEffect(value);
     }
   }
 
@@ -125,8 +130,7 @@
     onVolumePinMouseup: function () {
       EFFECT_LEVEL_PIN.addEventListener('mouseup', function () {
         var parentLength = EFFECT_LEVEL_LINE.offsetWidth;
-        var pinLength = EFFECT_LEVEL_PIN.offsetWidth;
-        var pinDistanceFromLeft = EFFECT_LEVEL_PIN.offsetLeft - (pinLength * 0.5);
+        var pinDistanceFromLeft = EFFECT_LEVEL_PIN.offsetLeft;
         var volumeMaxValue = 100;
         EFFECT_LEVEL_VALUE.value = Math.floor((pinDistanceFromLeft * volumeMaxValue) / parentLength);
       });
@@ -162,7 +166,8 @@
     },
     onFormChange: function () {
       UPLOAD_EDIT_FORM.addEventListener('change', function (evt) {
-        onRadioButtonChangeHandler(evt);
+        var value = onRadioButtonChangeHandler(evt);
+        return value;
       });
     }
   };
