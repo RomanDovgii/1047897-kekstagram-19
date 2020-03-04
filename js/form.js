@@ -11,6 +11,8 @@
   var EFFECT_LEVEL_PIN = EFFECT_LEVEL_LINE.querySelector('.effect-level__pin');
   var UPLOAD_EDIT_DEPTH = UPLOAD_EDIT_OVERLAY.querySelector('.effect-level__depth');
 
+  var BASIC_VALUE = 20;
+
   function checkIfHashtagsAreCorrect(array) {
     var customValidityString = '';
 
@@ -112,11 +114,12 @@
 
   function onRadioButtonChangeHandler(evt) {
     if (evt.target && evt.target.matches('input[type="radio"]')) {
-      var value = evt.target.value;
-      EFFECT_LEVEL_VALUE.value = 20;
+      var type = evt.target.value;
+      var value = BASIC_VALUE;
+      EFFECT_LEVEL_VALUE.setAttribute('value', '20%');
       EFFECT_LEVEL_PIN.style.left = 20 + '%';
       UPLOAD_EDIT_DEPTH.style.width = EFFECT_LEVEL_PIN.style.left;
-      window.effects.applyEffect(value);
+      window.effects.applyEffect(type, value);
     }
   }
 

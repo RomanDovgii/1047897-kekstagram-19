@@ -41,9 +41,9 @@
       }
 
       UPLOAD_EDIT_DEPTH.style.width = EFFECT_LEVEL_PIN.style.left;
-      UPLOAD_EDIT_INPUT.value = Math.floor(UPLOAD_EDIT_DEPTH.offsetWidth / EFFECT_LEVEL_LINE.offsetWidth * 100);
-      UPLOAD_EDIT_INPUT.setAttribute('value', UPLOAD_EDIT_INPUT.value);
-      window.effects.applyEffect(type);
+      var percent = Math.floor(UPLOAD_EDIT_DEPTH.offsetWidth / EFFECT_LEVEL_LINE.offsetWidth * 100);
+      UPLOAD_EDIT_INPUT.setAttribute('value', percent + '%');
+      window.effects.applyEffect(type, percent);
     }
 
     function onMouseUp(upEvt) {

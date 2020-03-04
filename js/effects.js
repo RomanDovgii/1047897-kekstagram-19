@@ -2,7 +2,6 @@
 
 (function () {
   var FORM = document.querySelector('.img-upload__form');
-  var EFFECT_LEVEL_VALUE = FORM.querySelector('.effect-level__value');
   var IMAGE_UPLOAD_PREVIEW = FORM.querySelector('.img-upload__preview');
   var IMAGE = IMAGE_UPLOAD_PREVIEW.querySelector('img');
 
@@ -12,8 +11,8 @@
   }
 
   window.effects = {
-    applyEffect: function (type) {
-      var percent = EFFECT_LEVEL_VALUE.value / 100;
+    applyEffect: function (type, percent) {
+      var localPercent = percent / 100;
       var min = 0;
       var max = 100;
 
@@ -21,46 +20,46 @@
         case 'chrome':
           min = 0;
           max = 1;
-          effectProportion(min, max, percent);
+          effectProportion(min, max, localPercent);
           IMAGE.removeAttribute('class');
           IMAGE.classList.add('effect__preview--chrome');
-          IMAGE.style.filter = 'grayscale(' + effectProportion(min, max, percent) + ')';
+          IMAGE.style.filter = 'grayscale(' + effectProportion(min, max, localPercent) + ')';
           break;
         case 'sepia':
           min = 0;
           max = 1;
-          effectProportion(min, max, percent);
+          effectProportion(min, max, localPercent);
           IMAGE.removeAttribute('class');
           IMAGE.classList.add('effect__preview--sepia');
-          IMAGE.style.filter = 'sepia(' + effectProportion(min, max, percent) + ')';
+          IMAGE.style.filter = 'sepia(' + effectProportion(min, max, localPercent) + ')';
           break;
         case 'marvin':
           min = 0;
           max = 100;
-          effectProportion(min, max, percent);
+          effectProportion(min, max, localPercent);
           IMAGE.removeAttribute('class');
           IMAGE.classList.add('effect__preview--marvin');
-          IMAGE.style.filter = 'invert(' + effectProportion(min, max, percent) + '%)';
+          IMAGE.style.filter = 'invert(' + effectProportion(min, max, localPercent) + '%)';
           break;
         case 'phobos':
           min = 0;
           max = 3;
           IMAGE.removeAttribute('class');
           IMAGE.classList.add('effect__preview--phobos');
-          IMAGE.style.filter = 'blur(' + effectProportion(min, max, percent) + 'px)';
+          IMAGE.style.filter = 'blur(' + effectProportion(min, max, localPercent) + 'px)';
           break;
         case 'heat':
           min = 1;
           max = 3;
-          effectProportion(min, max, percent);
+          effectProportion(min, max, localPercent);
           IMAGE.removeAttribute('class');
           IMAGE.classList.add('effect__preview--heat');
-          IMAGE.style.filter = 'brightness(' + effectProportion(min, max, percent) + ')';
+          IMAGE.style.filter = 'brightness(' + effectProportion(min, max, localPercent) + ')';
           break;
         default:
           min = 0;
           max = 100;
-          effectProportion(min, max, percent);
+          effectProportion(min, max, localPercent);
           IMAGE.removeAttribute('class');
           IMAGE.removeAttribute('style');
           break;
