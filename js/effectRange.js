@@ -30,19 +30,20 @@
 
       startClientX = evt.clientX;
 
-      var pinPosition = EFFECT_LEVEL_PIN.offsetLeft;
+      EFFECT_LEVEL_PIN.style.left = (basePosition - shift) + 'px';
 
-      if ((pinPosition > min) && ((pinPosition - pinHalf) < max)) {
-        EFFECT_LEVEL_PIN.style.left = (basePosition - shift) + 'px';
-      } else if ((pinPosition <= min) && (shift < 0)) {
-        EFFECT_LEVEL_PIN.style.left = (basePosition - shift) + 'px';
-      } else if (((pinPosition - pinHalf) >= max) && (shift > 0)) {
-        EFFECT_LEVEL_PIN.style.left = (basePosition - shift) + 'px';
+
+      if ((basePosition - shift) <= min) {
+        EFFECT_LEVEL_PIN.style.left = min + 'px';
+      }
+      if (((basePosition - shift) - pinHalf) >= max) {
+        EFFECT_LEVEL_PIN.style.left = max + pinHalf + 'px';
       }
 
       UPLOAD_EDIT_DEPTH.style.width = EFFECT_LEVEL_PIN.style.left;
+
       var percent = Math.floor(UPLOAD_EDIT_DEPTH.offsetWidth / EFFECT_LEVEL_LINE.offsetWidth * 100);
-      UPLOAD_EDIT_INPUT.setAttribute('value', percent + '%');
+      UPLOAD_EDIT_INPUT.setAttribute('value', percent);
       window.effects.applyEffect(type, percent);
     }
 
