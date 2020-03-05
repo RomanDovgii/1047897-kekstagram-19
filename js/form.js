@@ -116,7 +116,7 @@
     if (evt.target && evt.target.matches('input[type="radio"]')) {
       var type = evt.target.value;
       var value = BASIC_VALUE;
-      EFFECT_LEVEL_VALUE.setAttribute('value', '20%');
+      EFFECT_LEVEL_VALUE.setAttribute('value', '20');
       EFFECT_LEVEL_PIN.style.left = 20 + '%';
       UPLOAD_EDIT_DEPTH.style.width = EFFECT_LEVEL_PIN.style.left;
       window.effects.applyEffect(type, value);
