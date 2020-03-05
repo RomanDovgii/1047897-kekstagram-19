@@ -13,6 +13,11 @@
   var UPLOAD_HASHTAGS_INPUT = UPLOAD_EDIT_OVERLAY.querySelector('.text__hashtags');
   var UPLOAD_DESCRIPTION_INPUT = UPLOAD_EDIT_OVERLAY.querySelector('.text__description');
 
+  var PHOTOS = [];
+
+  window.backend.load(function (photos) {
+    PHOTOS = photos;
+  });
 
   function renderBigPicture(index, photos) {
     BIG_PICTURE.querySelector('.big-picture__img img').src = photos[index].url;
@@ -25,10 +30,8 @@
     BIG_PICTURE.classList.remove('hidden');
     document.querySelector('.social__comments').innerHTML = '';
     document.querySelector('body').classList.add('modal-open');
-    window.backend.load(function (photos) {
-      renderBigPicture(number, photos);
-      appendComments(number, photos);
-    });
+    renderBigPicture(number, PHOTOS);
+    appendComments(number, PHOTOS);
     BIG_PICTURE.querySelector('.social__comment-count').classList.add('hidden');
     BIG_PICTURE.querySelector('.comments-loader').classList.add('hidden');
   }
