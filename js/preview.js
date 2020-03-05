@@ -14,29 +14,32 @@
   var UPLOAD_DESCRIPTION_INPUT = UPLOAD_EDIT_OVERLAY.querySelector('.text__description');
 
 
-  function renderBigPicture(index) {
-    BIG_PICTURE.querySelector('.big-picture__img img').src = window.picture.PHOTO_OBJECTS[index].url;
-    BIG_PICTURE.querySelector('.likes-count').textContent = window.picture.PHOTO_OBJECTS[index].likes;
-    BIG_PICTURE.querySelector('.comments-count').textContent = window.picture.PHOTO_OBJECTS[index].comments.length;
+  function renderBigPicture(index, photos) {
+    BIG_PICTURE.querySelector('.big-picture__img img').src = photos[index].url;
+    BIG_PICTURE.querySelector('.social__caption').textContent = photos[index].description;
+    BIG_PICTURE.querySelector('.likes-count').textContent = photos[index].likes;
+    BIG_PICTURE.querySelector('.comments-count').textContent = photos[index].comments.length;
   }
 
   function showBigPicture(number) {
+    BIG_PICTURE.classList.remove('hidden');
     document.querySelector('.social__comments').innerHTML = '';
     document.querySelector('body').classList.add('modal-open');
-    BIG_PICTURE.classList.remove('hidden');
-    renderBigPicture(number);
-    appendComments(number);
+    window.backend.load(function (photos) {
+      renderBigPicture(number, photos);
+      appendComments(number, photos);
+    });
     BIG_PICTURE.querySelector('.social__comment-count').classList.add('hidden');
     BIG_PICTURE.querySelector('.comments-loader').classList.add('hidden');
   }
 
-  function appendComments(index) {
+  function appendComments(index, photos) {
 
-    for (var i = 0; i < window.picture.PHOTO_OBJECTS[index].comments.length; i++) {
+    for (var i = 0; i < photos[index].comments.length; i++) {
       var socialComment = SOCIAL_COMMENT_TEMPLATE.cloneNode(true);
-      socialComment.querySelector('.social__picture').src = window.picture.PHOTO_OBJECTS[index].comments[i].avatar;
-      socialComment.querySelector('.social__picture').alt = window.picture.PHOTO_OBJECTS[index].comments[i].name;
-      socialComment.querySelector('.social__text').textContent = window.picture.PHOTO_OBJECTS[index].comments[i].message;
+      socialComment.querySelector('.social__picture').src = photos[index].comments[i].avatar;
+      socialComment.querySelector('.social__picture').alt = photos[index].comments[i].name;
+      socialComment.querySelector('.social__text').textContent = photos[index].comments[i].message;
       SOCIAL_COMMENTS.append(socialComment);
     }
 

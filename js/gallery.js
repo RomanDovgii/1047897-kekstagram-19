@@ -16,13 +16,15 @@
     return fragment;
   }
 
-  function appendImage() {
+  function appendImage(photos) {
 
-    for (var i = 0; i < window.data.PHOTOS_COUNTER; i++) {
-      PICTURES_CONTAINER.appendChild(renderImage(i, window.picture.PHOTO_OBJECTS));
+    for (var i = 0; i < photos.length; i++) {
+      PICTURES_CONTAINER.appendChild(renderImage(i, photos));
     }
 
   }
 
-  appendImage();
+  window.backend.load(function (photos) {
+    appendImage(photos);
+  });
 })();
