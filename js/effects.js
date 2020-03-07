@@ -50,7 +50,7 @@
         case 'marvin':
           min = 0;
           max = 100;
-          showRange()
+          showRange();
           effectProportion(min, max, localPercent);
           IMAGE.removeAttribute('class');
           IMAGE.classList.add('effect__preview--marvin');
