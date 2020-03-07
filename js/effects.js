@@ -17,7 +17,7 @@
   }
 
   function showRange() {
-    UPLOAD_RANGE_INPUT.classList.remove('hidden')
+    UPLOAD_RANGE_INPUT.classList.remove('hidden');
   }
 
   hideRange();
