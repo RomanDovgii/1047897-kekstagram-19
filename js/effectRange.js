@@ -2,10 +2,10 @@
 
 (function () {
   var UPLOAD_EDIT_OVERLAY = document.querySelector('.img-upload__overlay');
-  var EFFECT_LEVEL_LINE = UPLOAD_EDIT_OVERLAY.querySelector('.effect-level__line');
-  var EFFECT_LEVEL_PIN = EFFECT_LEVEL_LINE.querySelector('.effect-level__pin');
   var UPLOAD_EDIT_DEPTH = UPLOAD_EDIT_OVERLAY.querySelector('.effect-level__depth');
   var UPLOAD_EDIT_INPUT = UPLOAD_EDIT_OVERLAY.querySelector('.effect-level__value');
+  var EFFECT_LEVEL_LINE = UPLOAD_EDIT_OVERLAY.querySelector('.effect-level__line');
+  var EFFECT_LEVEL_PIN = EFFECT_LEVEL_LINE.querySelector('.effect-level__pin');
   var IMAGE_UPLOAD_PREVIEW = UPLOAD_EDIT_OVERLAY.querySelector('.img-upload__preview');
   var IMAGE = IMAGE_UPLOAD_PREVIEW.querySelector('img');
 

@@ -13,6 +13,7 @@
 
   var BASIC_VALUE = 20;
 
+
   function checkIfHashtagsAreCorrect(array) {
     var customValidityString = '';
 
