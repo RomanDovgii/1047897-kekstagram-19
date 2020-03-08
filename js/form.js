@@ -13,6 +13,7 @@
 
   var BASIC_VALUE = 20;
 
+
   function checkIfHashtagsAreCorrect(array) {
     var customValidityString = '';
 
@@ -112,14 +113,13 @@
     return lowerCaseArray;
   }
 
-  function onRadioButtonChangeHandler(evt) {
+  function onEffectChangeHandler(evt) {
     if (evt.target && evt.target.matches('input[type="radio"]')) {
       var type = evt.target.value;
-      var value = BASIC_VALUE;
-      EFFECT_LEVEL_VALUE.setAttribute('value', '20');
+      EFFECT_LEVEL_VALUE.setAttribute('value', BASIC_VALUE);
       EFFECT_LEVEL_PIN.style.left = 20 + '%';
       UPLOAD_EDIT_DEPTH.style.width = EFFECT_LEVEL_PIN.style.left;
-      window.effects.applyEffect(type, value);
+      window.effects.applyEffect(type, BASIC_VALUE);
     }
   }
 
@@ -169,7 +169,7 @@
     },
     onFormChange: function () {
       UPLOAD_EDIT_FORM.addEventListener('change', function (evt) {
-        var value = onRadioButtonChangeHandler(evt);
+        var value = onEffectChangeHandler(evt);
         return value;
       });
     }
