@@ -13,11 +13,7 @@
   var UPLOAD_HASHTAGS_INPUT = UPLOAD_EDIT_OVERLAY.querySelector('.text__hashtags');
   var UPLOAD_DESCRIPTION_INPUT = UPLOAD_EDIT_OVERLAY.querySelector('.text__description');
 
-  var PHOTOS = [];
-
-  window.backend.load(function (photos) {
-    PHOTOS = photos;
-  });
+  var PHOTOS = window.gallery;
 
   function renderBigPicture(index, photos) {
     BIG_PICTURE.querySelector('.big-picture__img img').src = photos[index].url;
