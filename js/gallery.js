@@ -3,7 +3,6 @@
 (function () {
   var PICTURES_CONTAINER = document.querySelector('.pictures');
   var IMAGE_TEMPLATE = document.querySelector('#picture').content.querySelector('.picture');
-  var PHOTOS = [];
 
   function renderImage(number, photoObjects) {
     var photoBlock = IMAGE_TEMPLATE.cloneNode(true);
@@ -25,10 +24,12 @@
 
   }
 
+  function returnArray(photos) {
+    window.gallery = photos;
+  }
+
   window.backend.load(function (photos) {
     appendImage(photos);
-    PHOTOS = photos;
+    returnArray(photos);
   });
-
-  window.gallery = PHOTOS;
 })();

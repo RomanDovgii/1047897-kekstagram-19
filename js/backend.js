@@ -2,7 +2,7 @@
 
 (function () {
   // var URL = 'https://js.dump.academy/code-and-magick';
-  var PHOTOS = 'https://js.dump.academy/kekstagram/data';
+  var PHOTOS_URL = 'https://js.dump.academy/kekstagram/data';
   // var FORM = document.querySelector('.setup-wizard-form');
   // var SUBMIT_BUTTON = FORM.querySelector('.setup-submit');
 
@@ -28,12 +28,17 @@
     }
   };
 
+  function callback(text) {
+    window.photos = text;
+    console.log(window.photos);
+  }
+
   window.backend = {
-    load: function (onSuccess) {
+    load: function (onSuccess, callback) {
       var xhr = new XMLHttpRequest();
       xhr.responseType = 'json';
 
-      xhr.open('GET', PHOTOS);
+      xhr.open('GET', PHOTOS_URL);
 
       xhr.addEventListener('load', function () {
         if (xhr.status > 200) {
@@ -47,6 +52,7 @@
       xhr.send();
     }
   };
+
 
 
 })();

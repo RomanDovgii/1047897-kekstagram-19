@@ -13,8 +13,6 @@
   var UPLOAD_HASHTAGS_INPUT = UPLOAD_EDIT_OVERLAY.querySelector('.text__hashtags');
   var UPLOAD_DESCRIPTION_INPUT = UPLOAD_EDIT_OVERLAY.querySelector('.text__description');
 
-  var PHOTOS = window.gallery;
-
   function renderBigPicture(index, photos) {
     BIG_PICTURE.querySelector('.big-picture__img img').src = photos[index].url;
     BIG_PICTURE.querySelector('.social__caption').textContent = photos[index].description;
@@ -23,11 +21,12 @@
   }
 
   function showBigPicture(number) {
+    var photos = window.gallery;
     BIG_PICTURE.classList.remove('hidden');
     document.querySelector('.social__comments').innerHTML = '';
     document.querySelector('body').classList.add('modal-open');
-    renderBigPicture(number, PHOTOS);
-    appendComments(number, PHOTOS);
+    renderBigPicture(number, photos);
+    appendComments(number, photos);
     BIG_PICTURE.querySelector('.social__comment-count').classList.add('hidden');
     BIG_PICTURE.querySelector('.comments-loader').classList.add('hidden');
   }
