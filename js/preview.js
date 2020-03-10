@@ -21,7 +21,7 @@
   }
 
   function showBigPicture(number) {
-    var photos = window.gallery;
+    var photos = window.gallery.data;
     BIG_PICTURE.classList.remove('hidden');
     document.querySelector('.social__comments').innerHTML = '';
     document.querySelector('body').classList.add('modal-open');
