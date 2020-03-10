@@ -28,13 +28,8 @@
     }
   };
 
-  function callback(text) {
-    window.photos = text;
-    console.log(window.photos);
-  }
-
   window.backend = {
-    load: function (onSuccess, callback) {
+    load: function (onSuccess) {
       var xhr = new XMLHttpRequest();
       xhr.responseType = 'json';
 
@@ -52,7 +47,6 @@
       xhr.send();
     }
   };
-
 
 
 })();
