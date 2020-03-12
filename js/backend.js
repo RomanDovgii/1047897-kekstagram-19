@@ -1,10 +1,8 @@
 'use strict';
 
 (function () {
-  // var URL = 'https://js.dump.academy/code-and-magick';
+  var URL = 'https://js.dump.academy/kekstagram';
   var PHOTOS_URL = 'https://js.dump.academy/kekstagram/data';
-  // var FORM = document.querySelector('.setup-wizard-form');
-  // var SUBMIT_BUTTON = FORM.querySelector('.setup-submit');
 
   var renderError = function (errorMessage) {
     removeError();
@@ -29,6 +27,23 @@
   };
 
   window.backend = {
+    upload: function (data, onSuccess) {
+      var xhr = new XMLHttpRequest();
+      xhr.responseType = 'json';
+
+      xhr.addEventListener('load', function () {
+        if (xhr.status > 200) {
+          renderError('Произошла ошибка');
+        } else {
+          onSuccess(xhr.response);
+          removeError();
+        }
+
+      });
+
+      xhr.open('POST', URL);
+      xhr.send(data);
+    },
     load: function (onSuccess) {
       var xhr = new XMLHttpRequest();
       xhr.responseType = 'json';
@@ -47,6 +62,5 @@
       xhr.send();
     }
   };
-
 
 })();

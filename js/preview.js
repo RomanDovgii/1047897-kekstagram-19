@@ -65,6 +65,7 @@
   function closeUploadFormHandler() {
     UPLOAD_EDIT_OVERLAY.classList.add('hidden');
     UPLOAD_FILE_INPUT.value = '';
+    window.imageScale.actions();
   }
 
   window.preview = {

@@ -128,6 +128,7 @@
     onInputFileChange: function () {
       UPLOAD_FILE_INPUT.addEventListener('change', function () {
         UPLOAD_EDIT_OVERLAY.classList.remove('hidden');
+        window.imageScale.actions();
       });
     },
     onVolumePinMouseup: function () {
