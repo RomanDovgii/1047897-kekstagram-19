@@ -4,6 +4,8 @@
   var UPLOAD_EDIT_FORM = document.querySelector('.img-upload__form');
   var UPLOAD_FILE_INPUT = document.querySelector('#upload-file');
   var UPLOAD_EDIT_OVERLAY = document.querySelector('.img-upload__overlay');
+  var EFFECT_RADIO_LIST = document.querySelector('.effects__list');
+  var EFFECT_NONE = EFFECT_RADIO_LIST.querySelector('#effect-none');
   var EFFECT_LEVEL_VALUE = UPLOAD_EDIT_OVERLAY.querySelector('.effect-level__value');
   var UPLOAD_DESCRIPTION_INPUT = UPLOAD_EDIT_OVERLAY.querySelector('.text__description');
   var UPLOAD_HASHTAGS_INPUT = UPLOAD_EDIT_OVERLAY.querySelector('.text__hashtags');
@@ -13,6 +15,17 @@
 
   var BASIC_VALUE = 20;
 
+  function openUpload() {
+    UPLOAD_EDIT_OVERLAY.classList.remove('hidden');
+    window.imageScale.actions();
+    EFFECT_NONE.checked = true;
+    var type = EFFECT_NONE.type;
+    window.effects.applyEffect(type, BASIC_VALUE);
+  }
+
+  function onUploadInputClick() {
+    UPLOAD_FILE_INPUT.addEventListener('change', openUpload);
+  }
 
   function checkIfHashtagsAreCorrect(array) {
     var customValidityString = '';
@@ -126,10 +139,7 @@
 
   window.form = {
     onInputFileChange: function () {
-      UPLOAD_FILE_INPUT.addEventListener('change', function () {
-        UPLOAD_EDIT_OVERLAY.classList.remove('hidden');
-        window.imageScale.actions();
-      });
+      onUploadInputClick();
     },
     onVolumePinMouseup: function () {
       EFFECT_LEVEL_PIN.addEventListener('mouseup', function () {

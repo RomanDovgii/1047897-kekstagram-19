@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var FORM = document.querySelector('.img-upload__form');
+  var SUBMIT_BUTTON = FORM.querySelector('.img-upload__submit');
   var MAIN = document.querySelector('main');
   var ERROR_TEMPLATE = document.querySelector('#error').content.querySelector('.error');
 
@@ -12,6 +14,8 @@
     if (error === null) {
       MAIN.prepend(fragment);
     }
+
+    handleActions();
   }
 
   function removeError() {
@@ -62,6 +66,7 @@
     if (error !== null) {
       var closeButton = error.querySelector('.error__button');
 
+      SUBMIT_BUTTON.disabled = false;
       closeButton.addEventListener('click', closeButtonActionsHandler);
       document.addEventListener('keydown', documentActionsHandler);
       error.addEventListener('click', errorActionsHandler);
@@ -75,9 +80,6 @@
     },
     error: function () {
       removeError();
-    },
-    actions: function () {
-      handleActions();
     }
   };
 })();

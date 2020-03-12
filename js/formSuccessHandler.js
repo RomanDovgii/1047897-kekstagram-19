@@ -13,6 +13,8 @@
     if (success === null) {
       MAIN.prepend(fragment);
     }
+
+    handleActions();
   }
 
   function removeSuccess() {
@@ -77,9 +79,6 @@
     },
     remove: function () {
       removeSuccess();
-    },
-    actions: function () {
-      handleActions();
     }
   };
 })();

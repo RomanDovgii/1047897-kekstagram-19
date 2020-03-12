@@ -81,7 +81,7 @@
         }
 
         if ((evt.keyCode === window.data.ESC_KEY_CODE) && (!BIG_PICTURE.classList.contains('hidden')) && (document.activeElement !== BIG_PICTURE_COMMENT_INPUT)) {
-          BIG_PICTURE.classList.add('hidden');
+          closeUploadFormHandler();
         }
       });
     },
@@ -101,8 +101,11 @@
     },
     onBigPictureCloseClick: function () {
       BIG_PICTURE_CLOSE.addEventListener('click', function () {
-        BIG_PICTURE.classList.add('hidden');
+        closeUploadFormHandler();
       });
+    },
+    bigPictureClose: function () {
+      closeUploadFormHandler();
     }
   };
 })();
