@@ -13,6 +13,7 @@
     window.formReset.closeAndReset();
     window.formError.render();
   }
+
   FORM.addEventListener('submit', function (evt) {
     evt.preventDefault();
 
