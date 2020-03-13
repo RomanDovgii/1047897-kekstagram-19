@@ -5,17 +5,15 @@
   var PHOTOS_URL = 'https://js.dump.academy/kekstagram/data';
 
   window.backend = {
-    upload: function (data, onSuccess) {
+    upload: function (data, onSuccess, onError) {
       var xhr = new XMLHttpRequest();
       xhr.responseType = 'json';
 
       xhr.addEventListener('load', function () {
         if (xhr.status > 200) {
-          window.formReset.closeAndReset();
-          window.formError.render();
+          onError();
         } else {
           onSuccess(xhr.response);
-          window.formSuccess.render();
         }
 
       });
@@ -23,7 +21,7 @@
       xhr.open('POST', URL);
       xhr.send(data);
     },
-    load: function (onSuccess) {
+    load: function (onSuccess, onError) {
       var xhr = new XMLHttpRequest();
       xhr.responseType = 'json';
 
@@ -31,7 +29,7 @@
 
       xhr.addEventListener('load', function () {
         if (xhr.status > 200) {
-          window.formError.render();
+          onError();
         } else {
           onSuccess(xhr.response);
         }
