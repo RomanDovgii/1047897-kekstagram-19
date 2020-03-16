@@ -9,7 +9,6 @@
 
   window.comments = {
     appendComments: function (comments, counter, maxRender) {
-      console.log(comments);
       if (maxRender > comments.length) {
         maxRender = comments.length;
         BIG_PICTURE_COMMENTS_MORE.classList.add('hidden');
