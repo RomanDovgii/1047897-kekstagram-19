@@ -20,7 +20,6 @@
 
       reader.addEventListener('load', function () {
         PREVIEW.src = reader.result;
-        console.log(RADIO_PREVIEWS);
         RADIO_PREVIEWS.forEach(function (element) {
           element.style.backgroundImage = 'url("' + reader.result + '")';
         });
