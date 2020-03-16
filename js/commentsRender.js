@@ -8,9 +8,10 @@
   var SOCIAL_COMMENT_TEMPLATE = SOCIAL_COMMENTS.querySelector('.social__comment');
 
   window.comments = {
-    appendComments: function (index, photos, counter, maxRender) {
-      if (maxRender > photos[index].comments.length) {
-        maxRender = photos[index].comments.length;
+    appendComments: function (comments, counter, maxRender) {
+      console.log(comments);
+      if (maxRender > comments.length) {
+        maxRender = comments.length;
         BIG_PICTURE_COMMENTS_MORE.classList.add('hidden');
       }
 
@@ -18,9 +19,9 @@
 
       for (var i = counter; i < maxRender; i++) {
         var socialComment = SOCIAL_COMMENT_TEMPLATE.cloneNode(true);
-        socialComment.querySelector('.social__picture').src = photos[index].comments[i].avatar;
-        socialComment.querySelector('.social__picture').alt = photos[index].comments[i].name;
-        socialComment.querySelector('.social__text').textContent = photos[index].comments[i].message;
+        socialComment.querySelector('.social__picture').src = comments[i].avatar;
+        socialComment.querySelector('.social__picture').alt = comments[i].name;
+        socialComment.querySelector('.social__text').textContent = comments[i].message;
         SOCIAL_COMMENTS.append(socialComment);
       }
     }

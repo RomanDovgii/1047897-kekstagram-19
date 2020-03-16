@@ -36,7 +36,7 @@
     document.querySelector('.social__comments').innerHTML = '';
     document.querySelector('body').classList.add('modal-open');
     renderBigPicture(number, photos);
-    window.comments.appendComments(number, photos, counter, maxRender);
+    window.comments.appendComments(photos[number].comments, counter, maxRender);
     numberEnclosed = number;
     photosEnclosed = photos;
     BIG_PICTURE_COMMENTS_MORE.addEventListener('click', renderAdditionalComments);
@@ -52,7 +52,7 @@
       maxRender += 5;
     }
 
-    window.comments.appendComments(numberEnclosed, photosEnclosed, counter, maxRender);
+    window.comments.appendComments(photosEnclosed[numberEnclosed].comments, counter, maxRender);
   }
 
   function showPicture(evt) {
