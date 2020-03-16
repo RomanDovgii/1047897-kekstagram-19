@@ -25,7 +25,8 @@
     BIG_PICTURE.querySelector('.comments-count').textContent = photos[index].comments.length;
   }
 
-  function showBigPicture(number) {var counter = 0;
+  function showBigPicture(number) {
+    counter = 0;
     maxRender = 5;
     numberEnclosed = 0;
     photosEnclosed = [];
