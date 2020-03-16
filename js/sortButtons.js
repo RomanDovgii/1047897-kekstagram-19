@@ -11,7 +11,7 @@
 
   var photos = [];
 
-  var debounce = window.debounce(function () {
+  var debounce = window.renderGalleryDebounced(function () {
     cleanContainer();
 
     if (BUTTON_DEFAULT.classList.contains(ACTIVE)) {
@@ -34,7 +34,7 @@
     });
   }
 
-  function makeDefault(evt) {
+  function showDefaultOrder(evt) {
     evt.preventDefault();
     debounce();
     BUTTON_DEFAULT.classList.add(ACTIVE);
@@ -49,7 +49,7 @@
 
   }
 
-  function makeRandom(evt) {
+  function showRandomOrder(evt) {
     evt.preventDefault();
     debounce();
     BUTTON_RANDOM.classList.add(ACTIVE);
@@ -63,7 +63,7 @@
     }
   }
 
-  function makeDiscussed(evt) {
+  function showDiscussedOrder(evt) {
     evt.preventDefault();
     debounce();
     BUTTON_DISCUSSED.classList.add(ACTIVE);
@@ -81,9 +81,9 @@
     sortButtons: function (array) {
       photos = array;
       FILTERS.classList.remove('img-filters--inactive');
-      BUTTON_DEFAULT.addEventListener('click', makeDefault);
-      BUTTON_RANDOM.addEventListener('click', makeRandom);
-      BUTTON_DISCUSSED.addEventListener('click', makeDiscussed);
+      BUTTON_DEFAULT.addEventListener('click', showDefaultOrder);
+      BUTTON_RANDOM.addEventListener('click', showRandomOrder);
+      BUTTON_DISCUSSED.addEventListener('click', showDiscussedOrder);
     }
   };
 
