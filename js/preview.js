@@ -75,6 +75,7 @@
 
   function hideBigPicture() {
     BIG_PICTURE.classList.add('hidden');
+    BIG_PICTURE_COMMENTS_MORE.removeEventListener('click', renderAdditionalComments);
   }
 
 
