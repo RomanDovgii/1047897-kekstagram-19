@@ -16,7 +16,7 @@
   var BASIC_VALUE = 20;
 
   function openUpload() {
-    UPLOAD_EDIT_OVERLAY.classList.remove('hidden');
+
     window.imageScale.actions();
     EFFECT_NONE.checked = true;
     var type = EFFECT_NONE.type;

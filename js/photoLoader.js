@@ -4,6 +4,7 @@
   var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
   var FILE_CHOOSER = document.querySelector('#upload-file');
+  var UPLOAD_EDIT_OVERLAY = document.querySelector('.img-upload__overlay');
   var PREVIEW = document.querySelector('.img-upload__preview img');
   var RADIO_PREVIEWS = document.querySelectorAll('.effects__preview');
 
@@ -27,6 +28,9 @@
       });
 
       reader.readAsDataURL(file);
+      UPLOAD_EDIT_OVERLAY.classList.remove('hidden');
+    } else {
+      window.formError.render();
     }
   };
 
