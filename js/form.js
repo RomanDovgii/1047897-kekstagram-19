@@ -16,7 +16,6 @@
   var BASIC_VALUE = 20;
 
   function openUpload() {
-
     window.imageScale.actions();
     EFFECT_NONE.checked = true;
     var type = EFFECT_NONE.type;
@@ -106,6 +105,7 @@
   function selectRightSymbolWordForm(number) {
     var rightWord = ' символ';
     var numberModulus = number % 10;
+
     if (numberModulus > 1 && numberModulus < 5) {
       rightWord = ' символа';
     } else if (numberModulus > 4 || numberModulus === 0) {
@@ -127,6 +127,7 @@
   }
 
   function onEffectChangeHandler(evt) {
+
     if (evt.target && evt.target.matches('input[type="radio"]')) {
       var type = evt.target.value;
       EFFECT_LEVEL_VALUE.setAttribute('value', BASIC_VALUE);

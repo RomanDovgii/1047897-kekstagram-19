@@ -31,6 +31,7 @@
     numberEnclosed = 0;
     photosEnclosed = [];
     var photos = window.gallery.data;
+
     BIG_PICTURE.classList.remove('hidden');
     BIG_PICTURE_COMMENTS_MORE.classList.remove('hidden');
     document.querySelector('.social__comments').innerHTML = '';
@@ -69,8 +70,6 @@
     if (number >= 0) {
       showBigPicture(number);
     }
-
-
   }
 
   function hideBigPicture() {
@@ -101,7 +100,6 @@
         if (evt.keyCode === window.data.ENTER_KEY_CODE) {
           showPicture(evt);
         }
-
       });
     },
     onPicturesClick: function () {

@@ -10,7 +10,9 @@
     var error = document.querySelector('.error');
     var errorBlock = ERROR_TEMPLATE.cloneNode(true);
     var fragment = document.createDocumentFragment();
+
     fragment.appendChild(errorBlock);
+
     if (error === null) {
       MAIN.prepend(fragment);
     }
@@ -24,12 +26,12 @@
     if (error !== null) {
       error.remove();
     }
-
   }
 
   function removeListeners() {
     var error = document.querySelector('.error');
     var closeButton = error.querySelector('.error__button');
+
     closeButton.removeEventListener('click', closeButtonActionsHandler);
     document.removeEventListener('keydown', documentActionsHandler);
     error.removeEventListener('click', errorActionsHandler);
@@ -43,7 +45,6 @@
       removeListeners();
       removeError();
     }
-
   }
 
   function documentActionsHandler(evt) {
@@ -52,7 +53,6 @@
       removeListeners();
       removeError();
     }
-
   }
 
   function closeButtonActionsHandler() {
@@ -71,7 +71,6 @@
       document.addEventListener('keydown', documentActionsHandler);
       error.addEventListener('click', errorActionsHandler);
     }
-
   }
 
   window.formError = {

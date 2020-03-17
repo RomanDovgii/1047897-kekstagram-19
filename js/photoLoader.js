@@ -24,7 +24,6 @@
         RADIO_PREVIEWS.forEach(function (element) {
           element.style.backgroundImage = 'url("' + reader.result + '")';
         });
-
       });
 
       reader.readAsDataURL(file);

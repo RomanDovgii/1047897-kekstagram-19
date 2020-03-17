@@ -23,7 +23,6 @@
     if (success !== null) {
       success.remove();
     }
-
   }
 
   function removeListeners() {
@@ -42,7 +41,6 @@
       removeListeners();
       removeSuccess();
     }
-
   }
 
   function documentActionsHandler(evt) {
@@ -51,7 +49,6 @@
       removeListeners();
       removeSuccess();
     }
-
   }
 
   function closeButtonActionsHandler() {
@@ -70,7 +67,6 @@
       document.addEventListener('keydown', documentActionsHandler);
       success.addEventListener('click', successActionsHandler);
     }
-
   }
 
   window.formSuccess = {

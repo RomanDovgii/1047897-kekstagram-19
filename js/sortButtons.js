@@ -25,7 +25,6 @@
     if (BUTTON_DISCUSSED.classList.contains(ACTIVE)) {
       window.render.gallery(window.sort.discussed(photos));
     }
-
   });
 
   function cleanContainer() {
@@ -46,7 +45,6 @@
     if (BUTTON_DISCUSSED.classList.contains(ACTIVE)) {
       BUTTON_DISCUSSED.classList.remove(ACTIVE);
     }
-
   }
 
   function showRandomOrder(evt) {

@@ -12,6 +12,7 @@
 
   EFFECT_LEVEL_PIN.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
+
     var startClientX = evt.clientX;
     var pinHalf = EFFECT_LEVEL_PIN.offsetWidth / 2;
     var min = EFFECT_LEVEL_LINE.offsetLeft - EFFECT_LEVEL_PIN.offsetWidth;
@@ -23,7 +24,6 @@
     function onMouseMove(moveEvt) {
       moveEvt.preventDefault();
 
-
       dragged = true;
 
       var shift = startClientX - moveEvt.clientX;
@@ -32,10 +32,10 @@
 
       EFFECT_LEVEL_PIN.style.left = (basePosition - shift) + 'px';
 
-
       if ((basePosition - shift) <= min) {
         EFFECT_LEVEL_PIN.style.left = min + 'px';
       }
+
       if (((basePosition - shift) - pinHalf) >= max) {
         EFFECT_LEVEL_PIN.style.left = max + pinHalf + 'px';
       }

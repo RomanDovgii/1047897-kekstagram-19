@@ -81,7 +81,6 @@
           IMAGE.removeAttribute('class');
           IMAGE.removeAttribute('style');
           break;
-
       }
     }
   };
