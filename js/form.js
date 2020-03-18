@@ -15,15 +15,11 @@
 
   var BASIC_VALUE = 20;
 
-  function openUpload() {
+  function openUploadHandler() {
     window.imageScale.actions();
     EFFECT_NONE.checked = true;
     var type = EFFECT_NONE.type;
     window.effects.applyEffect(type, BASIC_VALUE);
-  }
-
-  function onUploadInputClick() {
-    UPLOAD_FILE_INPUT.addEventListener('change', openUpload);
   }
 
   function checkIfHashtagsAreCorrect(array) {
@@ -137,53 +133,59 @@
     }
   }
 
+  function onVolumePinMouseupHandler() {
+    var parentLength = EFFECT_LEVEL_LINE.offsetWidth;
+    var pinDistanceFromLeft = EFFECT_LEVEL_PIN.offsetLeft;
+    var volumeMaxValue = 100;
+    EFFECT_LEVEL_VALUE.value = Math.floor((pinDistanceFromLeft * volumeMaxValue) / parentLength);
+  }
+
+  function onHashtagsInputHandler() {
+    var hashtags = [];
+    var customValidityString = '';
+    hashtags = UPLOAD_HASHTAGS_INPUT.value.split(' ');
+    customValidityString = checkIfHashtagsAreCorrect(hashtags);
+    UPLOAD_HASHTAGS_INPUT.setCustomValidity(customValidityString);
+
+    if (customValidityString !== '') {
+      UPLOAD_HASHTAGS_INPUT.reportValidity();
+    }
+  }
+
+  function onDescriptionInputHandler() {
+    var customValidityString = '';
+    var textContent = UPLOAD_DESCRIPTION_INPUT.value;
+    UPLOAD_DESCRIPTION_INPUT.setCustomValidity(customValidityString);
+
+    if (textContent.length > window.data.DESCRIPTION_MAX_LENGTH) {
+      var difference = textContent.length - window.data.DESCRIPTION_MAX_LENGTH;
+      customValidityString = 'Ваш комментарий слишком длинный, попробуйте укоротить его на ' + difference.toString() + selectRightSymbolWordForm(difference);
+      UPLOAD_DESCRIPTION_INPUT.setCustomValidity(customValidityString);
+      UPLOAD_DESCRIPTION_INPUT.reportValidity();
+    }
+  }
+
+  function onFormChangeHandler(evt) {
+    var value = onEffectChangeHandler(evt);
+    return value;
+  }
+
 
   window.form = {
     onInputFileChange: function () {
-      onUploadInputClick();
+      UPLOAD_FILE_INPUT.addEventListener('change', openUploadHandler);
     },
     onVolumePinMouseup: function () {
-      EFFECT_LEVEL_PIN.addEventListener('mouseup', function () {
-        var parentLength = EFFECT_LEVEL_LINE.offsetWidth;
-        var pinDistanceFromLeft = EFFECT_LEVEL_PIN.offsetLeft;
-        var volumeMaxValue = 100;
-        EFFECT_LEVEL_VALUE.value = Math.floor((pinDistanceFromLeft * volumeMaxValue) / parentLength);
-      });
+      EFFECT_LEVEL_PIN.addEventListener('mouseup', onVolumePinMouseupHandler);
     },
     onHashtagsInput: function () {
-      var hashtags = [];
-
-      UPLOAD_HASHTAGS_INPUT.addEventListener('input', function () {
-        var customValidityString = '';
-        hashtags = UPLOAD_HASHTAGS_INPUT.value.split(' ');
-        customValidityString = checkIfHashtagsAreCorrect(hashtags);
-        UPLOAD_HASHTAGS_INPUT.setCustomValidity(customValidityString);
-
-        if (customValidityString !== '') {
-          UPLOAD_HASHTAGS_INPUT.reportValidity();
-        }
-      });
+      UPLOAD_HASHTAGS_INPUT.addEventListener('input', onHashtagsInputHandler);
     },
     onDescriptionInput: function () {
-      var textContent = '';
-      UPLOAD_DESCRIPTION_INPUT.addEventListener('input', function () {
-        var customValidityString = '';
-        textContent = UPLOAD_DESCRIPTION_INPUT.value;
-        UPLOAD_DESCRIPTION_INPUT.setCustomValidity(customValidityString);
-
-        if (textContent.length > window.data.DESCRIPTION_MAX_LENGTH) {
-          var difference = textContent.length - window.data.DESCRIPTION_MAX_LENGTH;
-          customValidityString = 'Ваш комментарий слишком длинный, попробуйте укоротить его на ' + difference.toString() + selectRightSymbolWordForm(difference);
-          UPLOAD_DESCRIPTION_INPUT.setCustomValidity(customValidityString);
-          UPLOAD_DESCRIPTION_INPUT.reportValidity();
-        }
-      });
+      UPLOAD_DESCRIPTION_INPUT.addEventListener('input', onDescriptionInputHandler);
     },
     onFormChange: function () {
-      UPLOAD_EDIT_FORM.addEventListener('change', function (evt) {
-        var value = onEffectChangeHandler(evt);
-        return value;
-      });
+      UPLOAD_EDIT_FORM.addEventListener('change', onFormChangeHandler);
     }
   };
 })();

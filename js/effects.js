@@ -1,11 +1,9 @@
 'use strict';
 
 (function () {
-  var FORM = document.querySelector('.img-upload__form');
-  var IMAGE_UPLOAD_PREVIEW = FORM.querySelector('.img-upload__preview');
-  var IMAGE = IMAGE_UPLOAD_PREVIEW.querySelector('img');
-  var UPLOAD_EDIT_OVERLAY = document.querySelector('.img-upload__overlay');
-  var UPLOAD_RANGE_INPUT = UPLOAD_EDIT_OVERLAY.querySelector('.img-upload__effect-level');
+  var IMAGE_UPLOAD_OVERLAY = document.querySelector('.img-upload__overlay');
+  var IMAGE = IMAGE_UPLOAD_OVERLAY.querySelector('.img-upload__preview img');
+  var UPLOAD_RANGE_INPUT = IMAGE_UPLOAD_OVERLAY.querySelector('.img-upload__effect-level');
 
   function effectProportion(min, max, percent) {
     var strength = min + ((max - min) * percent);

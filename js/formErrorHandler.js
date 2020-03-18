@@ -1,8 +1,8 @@
 'use strict';
 
 (function () {
-  var FORM = document.querySelector('.img-upload__form');
-  var SUBMIT_BUTTON = FORM.querySelector('.img-upload__submit');
+  var UPLOAD_EDIT_FORM = document.querySelector('.img-upload__form');
+  var SUBMIT_BUTTON = UPLOAD_EDIT_FORM.querySelector('.img-upload__submit');
   var MAIN = document.querySelector('main');
   var ERROR_TEMPLATE = document.querySelector('#error').content.querySelector('.error');
 

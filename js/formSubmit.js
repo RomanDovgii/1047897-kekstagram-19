@@ -2,8 +2,8 @@
 
 (function () {
   var SUBMIT = document.querySelector('.img-upload__submit');
-  var FORM = document.querySelector('.img-upload__form');
-  // var SUBMIT_BUTTON = FORM.querySelector('.img-upload__submit');
+  var UPLOAD_EDIT_FORM = document.querySelector('.img-upload__form');
+  // var SUBMIT_BUTTON = UPLOAD_EDIT_FORM.querySelector('.img-upload__submit');
 
   function showSuccessPopup() {
     SUBMIT.disabled = false;
@@ -17,10 +17,10 @@
     window.formError.render();
   }
 
-  FORM.addEventListener('submit', function (evt) {
+  UPLOAD_EDIT_FORM.addEventListener('submit', function (evt) {
     evt.preventDefault();
     SUBMIT.disabled = true;
 
-    window.backend.upload(new FormData(FORM), showSuccessPopup, showErrorPopup);
+    window.backend.upload(new FormData(UPLOAD_EDIT_FORM), showSuccessPopup, showErrorPopup);
   });
 })();
