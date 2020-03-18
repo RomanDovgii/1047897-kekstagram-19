@@ -56,7 +56,6 @@
     removeSuccess();
   }
 
-
   function handleActions() {
     var success = document.querySelector('.success');
 

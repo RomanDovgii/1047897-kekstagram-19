@@ -133,7 +133,6 @@
     return rightWord;
   }
 
-
   function makeArrayLowerCase(array) {
     var lowerCaseArray = [];
 
@@ -191,7 +190,6 @@
     var value = onEffectChangeHandler(evt);
     return value;
   }
-
 
   window.form = {
     open: function () {
