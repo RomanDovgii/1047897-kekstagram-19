@@ -19,9 +19,9 @@
   window.gallery = {
     render: function (photos) {
       window.photos = photos;
-      for (var i = 0; i < photos.length; i++) {
-        PICTURES_CONTAINER.appendChild(renderImage(photos[i]));
-      }
+      photos.forEach(function (element) {
+        PICTURES_CONTAINER.appendChild(renderImage(element));
+      });
     }
   };
 })();

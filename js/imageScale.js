@@ -9,11 +9,12 @@
 
   var MAX_SCALE = 100;
   var MIN_SCALE = 25;
+  var STEP = 25;
 
   var imageScale = 100;
 
   function scale(percent) {
-    var scaleValue = percent / 100;
+    var scaleValue = percent / MAX_SCALE;
     IMAGE.style.transform = 'scale(' + scaleValue + ')';
   }
 
@@ -21,7 +22,7 @@
     IMAGE_SCALE_NUMBER.setAttribute('value', imageScale);
 
     if (imageScale < MAX_SCALE) {
-      imageScale += 25;
+      imageScale += STEP;
     }
 
     IMAGE_SCALE_NUMBER.setAttribute('value', imageScale + '%');
@@ -30,7 +31,7 @@
 
   function smallerActionsHandler() {
     if (imageScale > MIN_SCALE) {
-      imageScale -= 25;
+      imageScale -= STEP;
     }
 
     IMAGE_SCALE_NUMBER.setAttribute('value', imageScale + '%');
@@ -43,7 +44,7 @@
     if (IMAGE_UPLOAD_OVERLAY.classList.contains('hidden')) {
       IMAGE_SCALE_BIGGER.removeEventListener('click', biggerActionsHandler);
       IMAGE_SCALE_SMALLER.removeEventListener('click', smallerActionsHandler);
-      imageScale = 100;
+      imageScale = MAX_SCALE;
       IMAGE_SCALE_NUMBER.setAttribute('value', imageScale + '%');
       scale(imageScale);
     } else {

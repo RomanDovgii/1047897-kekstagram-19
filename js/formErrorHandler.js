@@ -13,7 +13,7 @@
 
     fragment.appendChild(errorBlock);
 
-    if (error === null) {
+    if (!error) {
       MAIN.prepend(fragment);
     }
 
@@ -23,7 +23,7 @@
   function removeError() {
     var error = document.querySelector('.error');
 
-    if (error !== null) {
+    if (error) {
       error.remove();
     }
   }
@@ -39,9 +39,7 @@
 
   function errorActionsHandler(evt) {
 
-    if (evt.target.closest('.error__inner')) {
-      return;
-    } else {
+    if (!evt.target.closest('.error__inner')) {
       removeListeners();
       removeError();
     }
@@ -63,7 +61,7 @@
   function handleActions() {
     var error = document.querySelector('.error');
 
-    if (error !== null) {
+    if (error) {
       var closeButton = error.querySelector('.error__button');
 
       SUBMIT_BUTTON.disabled = false;

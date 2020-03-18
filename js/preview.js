@@ -8,9 +8,12 @@
   var BIG_PICTURE_CLOSE = BIG_PICTURE.querySelector('.big-picture__cancel');
   var USERS_PICTURES_LIST = document.querySelector('.pictures');
 
-  var counter = 0;
-  var maxRender = 5;
-  var numberEnclosed = 0;
+  var COMMENT_STEP = 5;
+  var COUNTER_START = 0;
+
+  var counter = COUNTER_START;
+  var maxRender = COMMENT_STEP;
+  var numberEnclosed = COUNTER_START;
   var photosEnclosed = [];
 
   function renderBigPicture(index, photos) {
@@ -21,9 +24,9 @@
   }
 
   function showBigPicture(number) {
-    counter = 0;
-    maxRender = 5;
-    numberEnclosed = 0;
+    counter = COUNTER_START;
+    maxRender = COMMENT_STEP;
+    numberEnclosed = COUNTER_START;
     photosEnclosed = [];
     var photos = window.photos;
 
@@ -41,11 +44,11 @@
   function renderAdditionalComments() {
     counter = maxRender;
 
-    if ((maxRender + 5) >= photosEnclosed[numberEnclosed].comments.length) {
+    if ((maxRender + COMMENT_STEP) >= photosEnclosed[numberEnclosed].comments.length) {
       maxRender = photosEnclosed[numberEnclosed].comments.length;
       BIG_PICTURE_COMMENTS_MORE.classList.add('hidden');
     } else {
-      maxRender += 5;
+      maxRender += COMMENT_STEP;
     }
 
     window.comments.add(photosEnclosed[numberEnclosed].comments, counter, maxRender);
@@ -56,11 +59,11 @@
     var number = -1;
     var eventTarget = evt.target.closest('a');
 
-    for (var i = 0; i < linksMassive.length; i++) {
-      if (eventTarget === linksMassive[i]) {
-        number = i;
+    linksMassive.forEach(function (element) {
+      if (eventTarget === element) {
+        number = Array.from(linksMassive).indexOf(element);
       }
-    }
+    });
 
     if (number >= 0) {
       showBigPicture(number);
@@ -71,6 +74,7 @@
     BIG_PICTURE.classList.add('hidden');
     BIG_PICTURE_COMMENTS_MORE.removeEventListener('click', renderAdditionalComments);
     removeListeners();
+    document.querySelector('body').classList.remove('modal-open');
   }
 
   function onDocumentKeydownHandler(evt) {

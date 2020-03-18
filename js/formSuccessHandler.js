@@ -10,7 +10,7 @@
     var fragment = document.createDocumentFragment();
 
     fragment.appendChild(successBlock);
-    if (success === null) {
+    if (!success) {
       MAIN.prepend(fragment);
     }
 
@@ -20,7 +20,7 @@
   function removeSuccess() {
     var success = document.querySelector('.success');
 
-    if (success !== null) {
+    if (success) {
       success.remove();
     }
   }
@@ -35,9 +35,7 @@
 
   function successActionsHandler(evt) {
 
-    if (evt.target.closest('.success__inner')) {
-      return;
-    } else {
+    if (!evt.target.closest('.success__inner')) {
       removeListeners();
       removeSuccess();
     }
@@ -59,7 +57,7 @@
   function handleActions() {
     var success = document.querySelector('.success');
 
-    if (success !== null) {
+    if (success) {
       var closeButton = success.querySelector('.success__button');
 
       closeButton.addEventListener('click', closeButtonActionsHandler);

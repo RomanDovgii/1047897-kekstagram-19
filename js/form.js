@@ -15,6 +15,7 @@
   var UPLOAD_EDIT_DEPTH = UPLOAD_EDIT_OVERLAY.querySelector('.effect-level__depth');
 
   var BASIC_VALUE = 20;
+  var MAX_HASHTAGS = 5;
 
   function openUploadHandler() {
     window.imageScale.actions();
@@ -47,15 +48,15 @@
   function checkIfHashtagsAreCorrect(array) {
     var customValidityString = '';
 
-    if (array.length <= 5) {
-      for (var i = 0; i < array.length; i++) {
-        var wordWithHashtag = array[i];
+    if (array.length <= MAX_HASHTAGS) {
+      array.forEach(function (element) {
+        var wordWithHashtag = element;
         var lowerCaseArray = makeArrayLowerCase(array);
         customValidityString = chechIfFirstSymbolIsHashtag(wordWithHashtag);
         if (customValidityString === '') {
           customValidityString = checkIfUsedTwice(lowerCaseArray);
         }
-      }
+      });
     } else {
       customValidityString = 'К сожалению, фото не может иметь более 5 хештегов';
     }
@@ -90,19 +91,22 @@
   function checkIfUsedTwice(array) {
     var customValidityString = '';
 
-    for (var i = 0; i < array.length; i++) {
+    array.forEach(function (element) {
       var counter = 0;
+      var firstElement = element;
 
-      for (var j = 0; j < array.length; j++) {
-        if (array[i] === array [j]) {
-          counter = counter + 1;
+      array.forEach(function (anotherElement) {
+        var secondElement = anotherElement;
+
+        if (firstElement === secondElement) {
+          counter += 1;
         }
-      }
+      });
 
       if (counter > 1) {
-        customValidityString = 'Один из хэштегов повторяется ' + counter.toString() + ' раз';
+        customValidityString = firstElement + ' повторяется ' + counter.toString() + ' раза';
       }
-    }
+    });
 
     return customValidityString;
   }
@@ -136,9 +140,9 @@
   function makeArrayLowerCase(array) {
     var lowerCaseArray = [];
 
-    for (var i = 0; i < array.length; i++) {
-      lowerCaseArray.push(array[i].toLowerCase());
-    }
+    array.forEach(function (element) {
+      lowerCaseArray.push(element.toLowerCase());
+    });
 
     return lowerCaseArray;
   }
