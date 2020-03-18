@@ -15,16 +15,17 @@
     cleanContainer();
 
     if (BUTTON_DEFAULT.classList.contains(ACTIVE)) {
-      window.render.gallery(photos);
+      window.gallery.render(photos);
     }
 
     if (BUTTON_RANDOM.classList.contains(ACTIVE)) {
-      window.render.gallery(window.sort.random(photos));
+      window.gallery.render(window.sort.random(photos));
     }
 
     if (BUTTON_DISCUSSED.classList.contains(ACTIVE)) {
-      window.render.gallery(window.sort.discussed(photos));
+      window.gallery.render(window.sort.discussed(photos));
     }
+
   });
 
   function cleanContainer() {
@@ -45,6 +46,7 @@
     if (BUTTON_DISCUSSED.classList.contains(ACTIVE)) {
       BUTTON_DISCUSSED.classList.remove(ACTIVE);
     }
+
   }
 
   function showRandomOrder(evt) {

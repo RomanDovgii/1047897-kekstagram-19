@@ -30,14 +30,14 @@
     maxRender = 5;
     numberEnclosed = 0;
     photosEnclosed = [];
-    var photos = window.gallery.data;
+    var photos = window.photos;
 
     BIG_PICTURE.classList.remove('hidden');
     BIG_PICTURE_COMMENTS_MORE.classList.remove('hidden');
     document.querySelector('.social__comments').innerHTML = '';
     document.querySelector('body').classList.add('modal-open');
     renderBigPicture(number, photos);
-    window.comments.appendComments(photos[number].comments, counter, maxRender);
+    window.comments.add(photos[number].comments, counter, maxRender);
     numberEnclosed = number;
     photosEnclosed = photos;
     BIG_PICTURE_COMMENTS_MORE.addEventListener('click', renderAdditionalComments);
@@ -53,7 +53,7 @@
       maxRender += 5;
     }
 
-    window.comments.appendComments(photosEnclosed[numberEnclosed].comments, counter, maxRender);
+    window.comments.add(photosEnclosed[numberEnclosed].comments, counter, maxRender);
   }
 
   function showPicture(evt) {

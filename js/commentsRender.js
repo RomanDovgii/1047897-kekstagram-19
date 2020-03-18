@@ -8,7 +8,7 @@
   var SOCIAL_COMMENT_TEMPLATE = SOCIAL_COMMENTS.querySelector('.social__comment');
 
   window.comments = {
-    appendComments: function (comments, counter, maxRender) {
+    add: function (comments, counter, maxRender) {
 
       if (maxRender > comments.length) {
         maxRender = comments.length;
