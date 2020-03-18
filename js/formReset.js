@@ -21,6 +21,7 @@
   window.formReset = {
     closeAndReset: function () {
       closeUploadFormHandler();
+      window.form.close();
     }
   };
 })();

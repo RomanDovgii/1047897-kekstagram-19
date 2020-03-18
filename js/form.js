@@ -4,6 +4,7 @@
   var UPLOAD_EDIT_FORM = document.querySelector('.img-upload__form');
   var UPLOAD_FILE_INPUT = document.querySelector('#upload-file');
   var UPLOAD_EDIT_OVERLAY = document.querySelector('.img-upload__overlay');
+  var UPLOAD_CANCEL_BUTTON = UPLOAD_EDIT_OVERLAY.querySelector('#upload-cancel');
   var EFFECT_RADIO_LIST = document.querySelector('.effects__list');
   var EFFECT_NONE = EFFECT_RADIO_LIST.querySelector('#effect-none');
   var EFFECT_LEVEL_VALUE = UPLOAD_EDIT_OVERLAY.querySelector('.effect-level__value');
@@ -20,6 +21,27 @@
     EFFECT_NONE.checked = true;
     var type = EFFECT_NONE.type;
     window.effects.applyEffect(type, BASIC_VALUE);
+    EFFECT_LEVEL_PIN.addEventListener('mouseup', onVolumePinMouseupHandler);
+    UPLOAD_HASHTAGS_INPUT.addEventListener('input', onHashtagsInputHandler);
+    UPLOAD_DESCRIPTION_INPUT.addEventListener('input', onDescriptionInputHandler);
+    UPLOAD_EDIT_FORM.addEventListener('change', onFormChangeHandler);
+    document.addEventListener('keydown', closeEditorFormHandler);
+    UPLOAD_CANCEL_BUTTON.addEventListener('click', window.formReset.closeAndReset);
+  }
+
+  function closeUploadHandler() {
+    EFFECT_LEVEL_PIN.removeEventListener('mouseup', onVolumePinMouseupHandler);
+    UPLOAD_HASHTAGS_INPUT.removeEventListener('input', onHashtagsInputHandler);
+    UPLOAD_DESCRIPTION_INPUT.removeEventListener('input', onDescriptionInputHandler);
+    UPLOAD_EDIT_FORM.removeEventListener('change', onFormChangeHandler);
+    document.removeEventListener('keydown', closeEditorFormHandler);
+    UPLOAD_CANCEL_BUTTON.removeEventListener('click', window.formReset.closeAndReset);
+  }
+
+  function closeEditorFormHandler(evt) {
+    if ((evt.keyCode === window.data.ESC_KEY_CODE) && (!UPLOAD_EDIT_OVERLAY.classList.contains('hidden')) && (document.activeElement !== UPLOAD_DESCRIPTION_INPUT) && (document.activeElement !== UPLOAD_HASHTAGS_INPUT)) {
+      window.formReset.closeAndReset();
+    }
   }
 
   function checkIfHashtagsAreCorrect(array) {
@@ -172,20 +194,11 @@
 
 
   window.form = {
-    onInputFileChange: function () {
+    open: function () {
       UPLOAD_FILE_INPUT.addEventListener('change', openUploadHandler);
     },
-    onVolumePinMouseup: function () {
-      EFFECT_LEVEL_PIN.addEventListener('mouseup', onVolumePinMouseupHandler);
-    },
-    onHashtagsInput: function () {
-      UPLOAD_HASHTAGS_INPUT.addEventListener('input', onHashtagsInputHandler);
-    },
-    onDescriptionInput: function () {
-      UPLOAD_DESCRIPTION_INPUT.addEventListener('input', onDescriptionInputHandler);
-    },
-    onFormChange: function () {
-      UPLOAD_EDIT_FORM.addEventListener('change', onFormChangeHandler);
+    close: function () {
+      closeUploadHandler();
     }
   };
 })();
