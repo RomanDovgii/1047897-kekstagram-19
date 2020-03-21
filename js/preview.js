@@ -86,6 +86,7 @@
 
   function initiateListeners() {
     document.addEventListener('keydown', onDocumentKeydownHandler);
+    BIG_PICTURE.addEventListener('click', outOfPreviewClickHandler);
     BIG_PICTURE_CLOSE.addEventListener('click', hideBigPicture);
   }
 
@@ -103,6 +104,12 @@
     initiateListeners();
   }
 
+  function outOfPreviewClickHandler(evt) {
+    if (!evt.target.closest('.big-picture__preview')) {
+      hideBigPicture();
+    }
+  }
+
   function openPreview() {
     USERS_PICTURES_LIST.addEventListener('keydown', onPictureKeydownHandler);
     USERS_PICTURES_LIST.addEventListener('click', onPictureClickHandler);
@@ -110,6 +117,7 @@
 
   function removeListeners() {
     document.removeEventListener('keydown', onDocumentKeydownHandler);
+    BIG_PICTURE.removeEventListener('click', outOfPreviewClickHandler);
     BIG_PICTURE_CLOSE.removeEventListener('click', hideBigPicture);
   }
 
